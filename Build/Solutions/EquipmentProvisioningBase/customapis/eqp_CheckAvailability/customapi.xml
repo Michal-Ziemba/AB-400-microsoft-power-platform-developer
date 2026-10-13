@@ -1,0 +1,18 @@
+<customapi uniquename="eqp_CheckAvailability">
+  <allowedcustomprocessingsteptype>0</allowedcustomprocessingsteptype>
+  <bindingtype>0</bindingtype>
+  <description default="Stand-in for an external availability service. Controlled by the eqp_AvailabilityMode environment variable: Available, Unavailable or Error (HTTP 503).">
+    <label description="Stand-in for an external availability service. Controlled by the eqp_AvailabilityMode environment variable: Available, Unavailable or Error (HTTP 503)." languagecode="1033" />
+  </description>
+  <displayname default="Check availability">
+    <label description="Check availability" languagecode="1033" />
+  </displayname>
+  <iscustomizable>1</iscustomizable>
+  <isfunction>0</isfunction>
+  <isprivate>0</isprivate>
+  <name>eqp_CheckAvailability</name>
+  <plugintypeid>
+    <plugintypeexportkey>f321d721-4dbd-f111-aaaf-6045bd089e40</plugintypeexportkey>
+  </plugintypeid>
+  <workflowsdkstepenabled>0</workflowsdkstepenabled>
+</customapi>

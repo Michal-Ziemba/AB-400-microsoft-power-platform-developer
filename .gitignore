@@ -1,0 +1,9 @@
+bin/
+obj/
+*.user
+.vs/
+node_modules/
+Build/Solutions/*.zip
+
+# Strong-name keys are never committed: lab 01 learners generate their own; the fixture key lives outside the repo
+*.snk

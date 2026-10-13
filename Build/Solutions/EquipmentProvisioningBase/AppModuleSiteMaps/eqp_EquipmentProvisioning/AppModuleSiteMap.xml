@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AppModuleSiteMap xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <SiteMapUniqueName>eqp_EquipmentProvisioning</SiteMapUniqueName>
+  <EnableCollapsibleGroups>False</EnableCollapsibleGroups>
+  <ShowHome>True</ShowHome>
+  <ShowPinned>True</ShowPinned>
+  <ShowRecents>True</ShowRecents>
+  <SiteMap IntroducedVersion="7.0.0.0">
+    <Area Id="eqp_area" ShowGroups="true">
+      <Titles>
+        <Title LCID="1033" Title="Equipment" />
+      </Titles>
+      <Group Id="eqp_group">
+        <Titles>
+          <Title LCID="1033" Title="Equipment provisioning" />
+        </Titles>
+        <SubArea Id="eqp_request" Entity="eqp_request" />
+        <SubArea Id="eqp_employee" Entity="eqp_employee" />
+        <SubArea Id="eqp_device" Entity="eqp_device" />
+        <SubArea Id="eqp_allowance" Entity="eqp_allowance" />
+      </Group>
+    </Area>
+  </SiteMap>
+  <LocalizedNames>
+    <LocalizedName description="Equipment Provisioning" languagecode="1033" />
+  </LocalizedNames>
+</AppModuleSiteMap>

@@ -1,0 +1,15 @@
+.EquipmentProvisioning\.DeviceConditionRating .eqp-rating-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.EquipmentProvisioning\.DeviceConditionRating .eqp-rating-slider {
+    width: 140px;
+}
+
+.EquipmentProvisioning\.DeviceConditionRating .eqp-rating-label {
+    font-weight: 600;
+    min-width: 16px;
+    text-align: center;
+}

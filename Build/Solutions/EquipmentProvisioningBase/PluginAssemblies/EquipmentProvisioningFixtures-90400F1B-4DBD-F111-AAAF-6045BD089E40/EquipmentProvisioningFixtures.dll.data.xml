@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PluginAssembly FullName="EquipmentProvisioning.Fixtures, Version=1.0.0.0, Culture=neutral, PublicKeyToken=48e5c5b4da35412a" PluginAssemblyId="90400f1b-4dbd-f111-aaaf-6045bd089e40" CustomizationLevel="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <IsolationMode>2</IsolationMode>
+  <SourceType>0</SourceType>
+  <IntroducedVersion>1.0.0.0</IntroducedVersion>
+  <FileName>/PluginAssemblies/EquipmentProvisioningFixtures-90400F1B-4DBD-F111-AAAF-6045BD089E40/EquipmentProvisioningFixtures.dll</FileName>
+  <PluginTypes>
+    <PluginType AssemblyQualifiedName="EquipmentProvisioning.Fixtures.CheckAvailability, EquipmentProvisioning.Fixtures, Version=1.0.0.0, Culture=neutral, PublicKeyToken=48e5c5b4da35412a" PluginTypeId="f321d721-4dbd-f111-aaaf-6045bd089e40" Name="EquipmentProvisioning.Fixtures.CheckAvailability">
+      <FriendlyName>Check availability</FriendlyName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="EquipmentProvisioning.Fixtures.IsEligibleForReplacement, EquipmentProvisioning.Fixtures, Version=1.0.0.0, Culture=neutral, PublicKeyToken=48e5c5b4da35412a" PluginTypeId="1f420f1b-4dbd-f111-aaaf-6045bd089e40" Name="EquipmentProvisioning.Fixtures.IsEligibleForReplacement">
+      <FriendlyName>Is eligible for replacement</FriendlyName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="EquipmentProvisioning.Fixtures.ResetLabData, EquipmentProvisioning.Fixtures, Version=1.0.0.0, Culture=neutral, PublicKeyToken=48e5c5b4da35412a" PluginTypeId="f221d721-4dbd-f111-aaaf-6045bd089e40" Name="EquipmentProvisioning.Fixtures.ResetLabData">
+      <FriendlyName>Reset lab data</FriendlyName>
+    </PluginType>
+  </PluginTypes>
+</PluginAssembly>

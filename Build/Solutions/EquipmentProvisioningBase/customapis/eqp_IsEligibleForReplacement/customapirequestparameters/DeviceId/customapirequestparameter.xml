@@ -1,0 +1,12 @@
+<customapirequestparameter uniquename="DeviceId">
+  <description default="The device being replaced.">
+    <label description="The device being replaced." languagecode="1033" />
+  </description>
+  <displayname default="Device ID">
+    <label description="Device ID" languagecode="1033" />
+  </displayname>
+  <iscustomizable>1</iscustomizable>
+  <isoptional>0</isoptional>
+  <name>eqp_IsEligibleForReplacement.DeviceId</name>
+  <type>12</type>
+</customapirequestparameter>

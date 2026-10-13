@@ -1,0 +1,14 @@
+<environmentvariabledefinition schemaname="eqp_AvailabilityMode">
+  <defaultvalue>Available</defaultvalue>
+  <description default="Controls the availability stand-in (eqp_CheckAvailability): Available, Unavailable or Error.">
+    <label description="Controls the availability stand-in (eqp_CheckAvailability): Available, Unavailable or Error." languagecode="1033" />
+  </description>
+  <displayname default="Availability mode">
+    <label description="Availability mode" languagecode="1033" />
+  </displayname>
+  <introducedversion>1.0.0.0</introducedversion>
+  <iscustomizable>1</iscustomizable>
+  <isrequired>0</isrequired>
+  <secretstore>0</secretstore>
+  <type>100000000</type>
+</environmentvariabledefinition>

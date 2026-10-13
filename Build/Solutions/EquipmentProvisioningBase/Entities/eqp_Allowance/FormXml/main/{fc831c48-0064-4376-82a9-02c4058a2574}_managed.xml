@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <systemform>
+    <formid>{fc831c48-0064-4376-82a9-02c4058a2574}</formid>
+    <IntroducedVersion>1.0.0.0</IntroducedVersion>
+    <FormPresentation>1</FormPresentation>
+    <FormActivationState>1</FormActivationState>
+    <form>
+      <tabs>
+        <tab verticallayout="true" id="{241ac132-1029-4b6a-8af2-991d4dafbf8f}" IsUserDefined="1">
+          <labels>
+            <label description="General" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section showlabel="false" showbar="false" IsUserDefined="0" id="{1d5671cd-e963-4ec0-882c-f0eeec3b348d}">
+                  <labels>
+                    <label description="General" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{a1be42f7-d1e4-414c-81b2-fd95dc3a45f6}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="eqp_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="eqp_name" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{98bf6f0d-c45f-41ab-a48f-412d87d93a94}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="eqp_employee" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="eqp_employee" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{416e5e86-ee6a-4251-af54-e7050f702c3d}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="eqp_periodstart" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="eqp_periodstart" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{f2dbf2d2-cf5f-4b7f-804f-05071add849d}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="eqp_periodend" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="eqp_periodend" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{4548daf2-0b28-4552-b7cd-bf75f04e0beb}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="eqp_devicesallowed" classid="{C6D124CA-7EDA-4a60-AEA9-7FB8D318B68F}" datafieldname="eqp_devicesallowed" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{ff18f570-3330-4ab0-a8bd-0fd287bff883}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="eqp_devicesused" classid="{C6D124CA-7EDA-4a60-AEA9-7FB8D318B68F}" datafieldname="eqp_devicesused" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{4cdadc15-c84d-46f4-8b3e-bca6b74b6d7e}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="eqp_remaining" classid="{C6D124CA-7EDA-4a60-AEA9-7FB8D318B68F}" datafieldname="eqp_remaining" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{e6d83d5e-151c-4c0c-a319-4ec353f62f99}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="eqp_lastrecalculatedon" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="eqp_lastrecalculatedon" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{6c1ebabb-1ba5-47e6-bec9-4d2b3b5072f1}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+      </tabs>
+    </form>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <LocalizedNames>
+      <LocalizedName description="Information" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="A form for this entity." languagecode="1033" />
+    </Descriptions>
+  </systemform>
+</forms>

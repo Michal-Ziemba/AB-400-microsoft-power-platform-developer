@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "DataverseMcp": {
+      "type": "http",
+      "url": "https://<your-org>.crm.dynamics.com/api/mcp",
+      "tools": ["read_query", "search", "describe"]
+    }
+  }
+}

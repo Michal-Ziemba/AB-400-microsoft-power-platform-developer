@@ -1,0 +1,18 @@
+<customapi uniquename="eqp_IsEligibleForReplacement">
+  <allowedcustomprocessingsteptype>1</allowedcustomprocessingsteptype>
+  <bindingtype>0</bindingtype>
+  <description default="Checks the replacement eligibility rule for one device: eligible if damaged beyond repair, if it has no issue date, or if it was issued at least 24 months ago.">
+    <label description="Checks the replacement eligibility rule for one device: eligible if damaged beyond repair, if it has no issue date, or if it was issued at least 24 months ago." languagecode="1033" />
+  </description>
+  <displayname default="Is eligible for replacement">
+    <label description="Is eligible for replacement" languagecode="1033" />
+  </displayname>
+  <iscustomizable>1</iscustomizable>
+  <isfunction>0</isfunction>
+  <isprivate>0</isprivate>
+  <name>eqp_IsEligibleForReplacement</name>
+  <plugintypeid>
+    <plugintypeexportkey>1f420f1b-4dbd-f111-aaaf-6045bd089e40</plugintypeexportkey>
+  </plugintypeid>
+  <workflowsdkstepenabled>0</workflowsdkstepenabled>
+</customapi>

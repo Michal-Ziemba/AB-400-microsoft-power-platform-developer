@@ -1,0 +1,12 @@
+<customapirequestparameter uniquename="RequestId">
+  <description default="The replacement request to check.">
+    <label description="The replacement request to check." languagecode="1033" />
+  </description>
+  <displayname default="Request ID">
+    <label description="Request ID" languagecode="1033" />
+  </displayname>
+  <iscustomizable>1</iscustomizable>
+  <isoptional>0</isoptional>
+  <name>eqp_CheckAvailability.RequestId</name>
+  <type>12</type>
+</customapirequestparameter>

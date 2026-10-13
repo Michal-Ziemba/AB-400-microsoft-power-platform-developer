@@ -1,0 +1,60 @@
+AB-400 lab 08: Build a resilient equipment-approval cloud flow
+Reference snippets for copy/paste. See Instructions/Labs/08-resilient-cloud-flow.md for context.
+
+-----------------------------------------------------------------
+Task 3 - Dataverse trigger filter (on the "When a row is added,
+modified or deleted" trigger)
+-----------------------------------------------------------------
+
+Select columns:
+eqp_requeststatus
+
+Filter rows (OData-style expression):
+eqp_requeststatus eq 100000001
+
+-----------------------------------------------------------------
+Task 4 - Retry policy settings for the "Check_availability" action
+(inside the "Try" scope)
+-----------------------------------------------------------------
+
+Type:     Fixed Interval
+Count:    2
+Interval: PT5S
+
+-----------------------------------------------------------------
+Task 4 - Catch scope "Update a row" action
+-----------------------------------------------------------------
+
+Table name:     Requests
+Request status: Needs attention
+
+Processing note expression (build this in the expression editor; type
+the literal text and utcNow() yourself, then insert the "Fulfilment
+contact" environment variable from the Dynamic content tab at the
+point shown below - don't type that part):
+
+concat('The availability check failed and exhausted its retries on ', utcNow(), '. Route this request to ', <Fulfilment contact>, ' for manual follow-up.')
+
+-----------------------------------------------------------------
+Task 4 - Calling the same custom API over raw HTTP (explained only,
+not practised in this exercise)
+-----------------------------------------------------------------
+
+Use the "HTTP with Microsoft Entra ID" action, not the generic "HTTP"
+action (which has no built-in Microsoft Entra ID authentication):
+
+POST https://<your-environment>.crm.dynamics.com/api/data/v9.2/eqp_CheckAvailability
+Content-Type: application/json
+
+{
+  "RequestId": "<request-guid>"
+}
+
+-----------------------------------------------------------------
+Task 6 - Service principal connection details
+-----------------------------------------------------------------
+
+Connection name:        Lab 08 service principal
+Application (client) ID: <from the ab400-lab08-flow app registration>
+Client Secret:           <the secret value you copied when you created it>
+Tenant:                  <your Directory (tenant) ID>

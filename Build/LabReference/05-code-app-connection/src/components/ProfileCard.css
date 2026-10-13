@@ -1,0 +1,19 @@
+.profile-status {
+  color: #605e5c;
+  font-style: italic;
+}
+
+.profile-card {
+  border-top: 1px solid #edebe9;
+  padding-top: 1rem;
+}
+
+.profile-job-title {
+  margin: 0.25rem 0;
+  font-weight: 600;
+}
+
+.profile-department {
+  margin: 0;
+  color: #605e5c;
+}

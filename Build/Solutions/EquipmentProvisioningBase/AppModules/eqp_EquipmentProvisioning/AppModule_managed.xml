@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AppModule>
+  <UniqueName>eqp_EquipmentProvisioning</UniqueName>
+  <IntroducedVersion>1.0.0.0</IntroducedVersion>
+  <WebResourceId>953b9fac-1e5e-e611-80d6-00155ded156f</WebResourceId>
+  <OptimizedFor></OptimizedFor>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+  <FormFactor>1</FormFactor>
+  <ClientType>4</ClientType>
+  <NavigationType>0</NavigationType>
+  <AppModuleComponents>
+    <AppModuleComponent type="1" schemaName="entity" />
+    <AppModuleComponent type="1" schemaName="entity" />
+    <AppModuleComponent type="1" schemaName="entity" />
+    <AppModuleComponent type="1" schemaName="entity" />
+    <AppModuleComponent type="26" id="{1de891e7-229c-4984-a15f-38695eb9e24a}" />
+    <AppModuleComponent type="26" id="{deee9cbc-c161-43bf-825f-3963e412502e}" />
+    <AppModuleComponent type="26" id="{a7610289-4e02-4561-b7ac-7bf63906f3ea}" />
+    <AppModuleComponent type="26" id="{fef5f07e-6d4f-4ddf-892a-93b0ed6bc357}" />
+    <AppModuleComponent type="60" id="{fc831c48-0064-4376-82a9-02c4058a2574}" />
+    <AppModuleComponent type="60" id="{9237568a-087a-44a4-be22-c97b29412f02}" />
+    <AppModuleComponent type="60" id="{1c852680-3d3d-4f21-8467-dd4808b222d0}" />
+    <AppModuleComponent type="62" schemaName="eqp_EquipmentProvisioning" />
+  </AppModuleComponents>
+  <AppModuleRoleMaps>
+    <Role id="{60192d85-4ebd-f111-aaaf-6045bd089e40}" />
+    <Role id="{0c62ba6b-4ebd-f111-aaaf-6045bd089e40}" />
+    <Role id="{627090ff-40a3-4053-8790-584edc5be201}" />
+    <Role id="{119f245c-3cc8-4b62-b31c-d1a046ced15d}" />
+  </AppModuleRoleMaps>
+  <LocalizedNames>
+    <LocalizedName description="Equipment Provisioning" languagecode="1033" />
+  </LocalizedNames>
+  <Descriptions>
+    <Description description="AB-400 labs: employees, devices, replacement requests and allowances." languagecode="1033" />
+  </Descriptions>
+  <appsettings>
+    <appsetting settingdefinitionid.uniquename="AppChannel">
+      <iscustomizable>1</iscustomizable>
+      <value>1</value>
+    </appsetting>
+  </appsettings>
+</AppModule>

@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>0</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>1</isdefault>
+    <savedqueryid>{a7610289-4e02-4561-b7ac-7bf63906f3ea}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="eqp_name" select="1" icon="1" preview="1">
+        <row name="result" id="eqp_requestid">
+          <cell name="eqp_name" width="150" />
+          <cell name="eqp_employee" width="140" />
+          <cell name="eqp_currentdevice" width="140" />
+          <cell name="eqp_requeststatus" width="140" />
+          <cell name="eqp_availability" width="140" />
+          <cell name="eqp_approvedon" width="140" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>0</querytype>
+    <fetchxml>
+      <fetch version="1.0" mapping="logical">
+        <entity name="eqp_request">
+          <attribute name="eqp_requestid" />
+          <attribute name="eqp_name" />
+          <attribute name="eqp_employee" />
+          <attribute name="eqp_currentdevice" />
+          <attribute name="eqp_requeststatus" />
+          <attribute name="eqp_availability" />
+          <attribute name="eqp_approvedon" />
+          <order attribute="eqp_name" descending="false" />
+          <filter type="and">
+            <condition attribute="statecode" operator="eq" value="0" />
+          </filter>
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0.0.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="Active Requests" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>

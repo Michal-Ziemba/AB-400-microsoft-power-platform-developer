@@ -1,0 +1,36 @@
+<appaction uniquename="eqp_ResetLabData_eqp_employee_grid">
+  <appmoduleid>
+    <uniquename>eqp_EquipmentProvisioning</uniquename>
+  </appmoduleid>
+  <buttonlabeltext default="Reset lab data">
+    <label description="Reset lab data" languagecode="1033" />
+  </buttonlabeltext>
+  <buttontooltipdescription default="Creates or restores the lab's sample rows. Doesn't delete anything.">
+    <label description="Creates or restores the lab's sample rows. Doesn't delete anything." languagecode="1033" />
+  </buttontooltipdescription>
+  <buttontooltiptitle default="Reset lab data">
+    <label description="Reset lab data" languagecode="1033" />
+  </buttontooltiptitle>
+  <context>1</context>
+  <contextentity>
+    <logicalname>eqp_employee</logicalname>
+  </contextentity>
+  <contextvalue>eqp_employee</contextvalue>
+  <hidden>0</hidden>
+  <iscustomizable>1</iscustomizable>
+  <isdisabled>0</isdisabled>
+  <isgrouptitlehidden>0</isgrouptitlehidden>
+  <location>1</location>
+  <name>Reset lab data (eqp_employee grid)</name>
+  <onclickeventjavascriptfunctionname>EquipmentProvisioning.resetLabData</onclickeventjavascriptfunctionname>
+  <onclickeventjavascriptwebresourceid>
+    <webresourceid>4fa5d572-4fbd-f111-aaaf-6045bd089e40</webresourceid>
+  </onclickeventjavascriptwebresourceid>
+  <onclickeventtype>2</onclickeventtype>
+  <origin>0</origin>
+  <sequence>100.0000000000</sequence>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+  <type>0</type>
+  <visibilitytype>0</visibilitytype>
+</appaction>

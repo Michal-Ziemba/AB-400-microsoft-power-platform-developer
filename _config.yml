@@ -2,6 +2,7 @@ remote_theme: MicrosoftLearning/Jekyll-Theme
 exclude:
   - readme.md
   - .github/
+  - Build/
 header_pages:
   - index.html
 author: Microsoft Learning
@@ -12,4 +13,4 @@ plugins:
   - jekyll-mentions
   - jemoji
 markdown: GFM
-title: Lab Exercises
+title: AB-400 lab exercises
