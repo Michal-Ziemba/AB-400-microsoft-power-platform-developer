@@ -1,0 +1,14 @@
+<environmentvariabledefinition schemaname="eqp_FulfillmentContact">
+  <defaultvalue>equipment-desk@example.com</defaultvalue>
+  <description default="Who handles fulfilment problems. Read at run time by the code app (lab 04) and the cloud flow (lab 08).">
+    <label description="Who handles fulfilment problems. Read at run time by the code app (lab 04) and the cloud flow (lab 08)." languagecode="1033" />
+  </description>
+  <displayname default="Fulfillment contact">
+    <label description="Fulfillment contact" languagecode="1033" />
+  </displayname>
+  <introducedversion>1.0.0.0</introducedversion>
+  <iscustomizable>1</iscustomizable>
+  <isrequired>0</isrequired>
+  <secretstore>0</secretstore>
+  <type>100000000</type>
+</environmentvariabledefinition>

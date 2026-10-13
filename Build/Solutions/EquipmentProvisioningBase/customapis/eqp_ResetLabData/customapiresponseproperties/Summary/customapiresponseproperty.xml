@@ -1,0 +1,11 @@
+<customapiresponseproperty uniquename="Summary">
+  <description default="What was reset.">
+    <label description="What was reset." languagecode="1033" />
+  </description>
+  <displayname default="Summary">
+    <label description="Summary" languagecode="1033" />
+  </displayname>
+  <iscustomizable>1</iscustomizable>
+  <name>eqp_ResetLabData.Summary</name>
+  <type>10</type>
+</customapiresponseproperty>

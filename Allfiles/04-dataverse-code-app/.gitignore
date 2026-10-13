@@ -1,0 +1,23 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Power Apps environment and generated data-source artifacts.
+# You create these by running `pa app init` and `pa app add data-source` /
+# `pa app add dataverse-api` in this exercise - they're specific to your own
+# environment, so they're never committed to the lab repository.
+power.config.json
+.power/
+src/generated/
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store

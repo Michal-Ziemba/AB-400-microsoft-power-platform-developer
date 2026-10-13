@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <systemform>
+    <formid>{200c1bb9-1e04-4161-999e-895ee4a64fec}</formid>
+    <IntroducedVersion>1.0.0.0</IntroducedVersion>
+    <FormPresentation>1</FormPresentation>
+    <FormActivationState>1</FormActivationState>
+    <form>
+      <tabs>
+        <tab verticallayout="true" id="{38b6c600-d521-48ae-a338-b0ec5066356f}" IsUserDefined="1">
+          <labels>
+            <label description="General" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section showlabel="false" showbar="false" IsUserDefined="0" id="{5f1c68ef-fb9f-467a-b0a8-a719eef76905}">
+                  <labels>
+                    <label description="General" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{01559a39-c85d-4d66-9a8c-4e56b0525cc2}">
+                        <labels>
+                          <label description="Request number" languagecode="1033" />
+                        </labels>
+                        <control id="eqp_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="eqp_name" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{fabe52d9-805c-456f-93a1-419deabbe5d3}">
+                        <labels>
+                          <label description="Employee" languagecode="1033" />
+                        </labels>
+                        <control id="eqp_employee" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="eqp_employee" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{b05d5f9a-3865-416d-b70d-2cb34e841d9e}">
+                        <labels>
+                          <label description="Device to replace" languagecode="1033" />
+                        </labels>
+                        <control id="eqp_currentdevice" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="eqp_currentdevice" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{74263eba-78e4-4834-9898-b9f7e60295c3}">
+                        <labels>
+                          <label description="Requested device type" languagecode="1033" />
+                        </labels>
+                        <control id="eqp_requesteddevicetype" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="eqp_requesteddevicetype" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{a549e06b-2eb0-4f43-9a7e-0018cb0a2a97}">
+                        <labels>
+                          <label description="Justification" languagecode="1033" />
+                        </labels>
+                        <control id="eqp_justification" classid="{E0DECE4B-6FC8-4a8f-A065-082708572369}" datafieldname="eqp_justification" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{0564f10f-d125-41fa-98ca-36165af4829b}">
+                        <labels>
+                          <label description="Request status" languagecode="1033" />
+                        </labels>
+                        <control id="eqp_requeststatus" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="eqp_requeststatus" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{1606c4cd-a7fc-434b-ae22-9cf47a06cb30}">
+                        <labels>
+                          <label description="Approved on" languagecode="1033" />
+                        </labels>
+                        <control id="eqp_approvedon" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="eqp_approvedon" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{fec65cda-fe26-4eeb-9ab8-f84ce88b65e6}">
+                        <labels>
+                          <label description="Availability" languagecode="1033" />
+                        </labels>
+                        <control id="eqp_availability" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="eqp_availability" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{a72b8bca-fd78-4fd5-a0ce-e908aaf2b99b}">
+                        <labels>
+                          <label description="Availability checked on" languagecode="1033" />
+                        </labels>
+                        <control id="eqp_availabilitycheckedon" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="eqp_availabilitycheckedon" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{b78d980a-e18e-4fac-b111-70482bb01dd1}">
+                        <labels>
+                          <label description="Processing note" languagecode="1033" />
+                        </labels>
+                        <control id="eqp_processingnote" classid="{E0DECE4B-6FC8-4a8f-A065-082708572369}" datafieldname="eqp_processingnote" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{5691c03b-d81e-40f0-96d2-15649be25ce2}">
+                        <labels>
+                          <label description="Owner" languagecode="1033" />
+                        </labels>
+                        <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+      </tabs>
+    </form>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <LocalizedNames>
+      <LocalizedName description="Information" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="A form for this entity." languagecode="1033" />
+    </Descriptions>
+  </systemform>
+</forms>

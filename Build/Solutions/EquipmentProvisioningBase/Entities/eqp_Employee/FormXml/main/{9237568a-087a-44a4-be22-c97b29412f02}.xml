@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <systemform>
+    <formid>{9237568a-087a-44a4-be22-c97b29412f02}</formid>
+    <IntroducedVersion>1.0.0.0</IntroducedVersion>
+    <FormPresentation>1</FormPresentation>
+    <FormActivationState>1</FormActivationState>
+    <form>
+      <tabs>
+        <tab verticallayout="true" id="{5b7b96e6-c8b7-4294-9a7a-f670e8a30b78}" IsUserDefined="1">
+          <labels>
+            <label description="General" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section showlabel="false" showbar="false" IsUserDefined="0" id="{0f0468c7-5596-4e4c-8e4a-7f5d8b9b87c4}">
+                  <labels>
+                    <label description="General" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{ff7c0fc1-0ddb-402f-9448-f72970621ae4}">
+                        <labels>
+                          <label description="Name" languagecode="1033" />
+                        </labels>
+                        <control id="eqp_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="eqp_name" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{46c2a47e-fe6a-4008-bb47-a4320465cf50}">
+                        <labels>
+                          <label description="Employee number" languagecode="1033" />
+                        </labels>
+                        <control id="eqp_employeenumber" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="eqp_employeenumber" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{2cc1d965-b4ae-4c13-9000-14ae4a7f1452}">
+                        <labels>
+                          <label description="Email" languagecode="1033" />
+                        </labels>
+                        <control id="eqp_email" classid="{ADA2203E-B4CD-49be-9DDF-234642B43B52}" datafieldname="eqp_email" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{3f445c0f-bef8-42eb-ac41-72489da34ece}">
+                        <labels>
+                          <label description="Department" languagecode="1033" />
+                        </labels>
+                        <control id="eqp_department" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="eqp_department" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{3e84eab3-c956-4e49-b79a-493abb423461}">
+                        <labels>
+                          <label description="User" languagecode="1033" />
+                        </labels>
+                        <control id="eqp_user" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="eqp_user" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{3f3d42c8-6a14-4558-9072-27b6ac0d66fe}">
+                        <labels>
+                          <label description="Owner" languagecode="1033" />
+                        </labels>
+                        <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+      </tabs>
+    </form>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <LocalizedNames>
+      <LocalizedName description="Information" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="A form for this entity." languagecode="1033" />
+    </Descriptions>
+  </systemform>
+</forms>

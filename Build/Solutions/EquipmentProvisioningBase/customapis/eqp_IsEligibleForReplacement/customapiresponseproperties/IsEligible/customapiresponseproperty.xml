@@ -1,0 +1,11 @@
+<customapiresponseproperty uniquename="IsEligible">
+  <description default="True if the device can be replaced now.">
+    <label description="True if the device can be replaced now." languagecode="1033" />
+  </description>
+  <displayname default="Is eligible">
+    <label description="Is eligible" languagecode="1033" />
+  </displayname>
+  <iscustomizable>1</iscustomizable>
+  <name>eqp_IsEligibleForReplacement.IsEligible</name>
+  <type>0</type>
+</customapiresponseproperty>

@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net462</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <AssemblyName>EquipmentProvisioning.Fixtures</AssemblyName>
+    <RootNamespace>EquipmentProvisioning.Fixtures</RootNamespace>
+    <SignAssembly>true</SignAssembly>
+    <!-- The signing key is kept outside the repo (strong-name keys must not be committed). The registered
+         assembly's identity depends on it, so every rebuild must use the same key. Pass it with
+         -p:FixturesKeyFile=<path>, or keep it at the default location below. -->
+    <FixturesKeyFile Condition="'$(FixturesKeyFile)' == ''">$(MSBuildProjectDirectory)\..\..\..\build-keys\EquipmentProvisioning.Fixtures.snk</FixturesKeyFile>
+    <AssemblyOriginatorKeyFile>$(FixturesKeyFile)</AssemblyOriginatorKeyFile>
+    <Version>1.0.0.0</Version>
+    <FileVersion>1.0.0.0</FileVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CrmSdk.CoreAssemblies" Version="9.0.2.*" PrivateAssets="all" />
+    <Reference Include="System.ServiceModel" />
+  </ItemGroup>
+
+</Project>

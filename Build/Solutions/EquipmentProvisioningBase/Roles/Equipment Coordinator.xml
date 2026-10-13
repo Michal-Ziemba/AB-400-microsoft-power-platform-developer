@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Role id="{60192d85-4ebd-f111-aaaf-6045bd089e40}" name="Equipment Coordinator" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <IsCustomizable>1</IsCustomizable>
+  <IsAutoAssigned>0</IsAutoAssigned>
+  <Description>AB-400 labs: manage employees, devices, requests and allowances, and run Reset lab data. Add to Basic User.</Description>
+  <RolePrivileges>
+    <RolePrivilege name="prvAppendeqp_Allowance" level="Global" />
+    <RolePrivilege name="prvAppendeqp_Device" level="Global" />
+    <RolePrivilege name="prvAppendeqp_Employee" level="Global" />
+    <RolePrivilege name="prvAppendeqp_Request" level="Global" />
+    <RolePrivilege name="prvAppendToeqp_Allowance" level="Global" />
+    <RolePrivilege name="prvAppendToeqp_Device" level="Global" />
+    <RolePrivilege name="prvAppendToeqp_Employee" level="Global" />
+    <RolePrivilege name="prvAppendToeqp_Request" level="Global" />
+    <RolePrivilege name="prvCreateeqp_Allowance" level="Global" />
+    <RolePrivilege name="prvCreateeqp_Device" level="Global" />
+    <RolePrivilege name="prvCreateeqp_Employee" level="Global" />
+    <RolePrivilege name="prvCreateeqp_Request" level="Global" />
+    <RolePrivilege name="prvCreateSharePointData" level="Global" />
+    <RolePrivilege name="prvReadeqp_Allowance" level="Global" />
+    <RolePrivilege name="prvReadeqp_Device" level="Global" />
+    <RolePrivilege name="prvReadeqp_Employee" level="Global" />
+    <RolePrivilege name="prvReadeqp_Request" level="Global" />
+    <RolePrivilege name="prvReadSharePointData" level="Global" />
+    <RolePrivilege name="prvReadSharePointDocument" level="Global" />
+    <RolePrivilege name="prvWriteeqp_Allowance" level="Global" />
+    <RolePrivilege name="prvWriteeqp_Device" level="Global" />
+    <RolePrivilege name="prvWriteeqp_Employee" level="Global" />
+    <RolePrivilege name="prvWriteeqp_Request" level="Global" />
+    <RolePrivilege name="prvWriteSharePointData" level="Global" />
+  </RolePrivileges>
+</Role>

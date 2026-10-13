@@ -1,0 +1,18 @@
+<customapi uniquename="eqp_ResetLabData">
+  <allowedcustomprocessingsteptype>0</allowedcustomprocessingsteptype>
+  <bindingtype>0</bindingtype>
+  <description default="Creates or restores the lab seed rows with dates relative to today, and links EMP-001 to the caller. Never deletes rows.">
+    <label description="Creates or restores the lab seed rows with dates relative to today, and links EMP-001 to the caller. Never deletes rows." languagecode="1033" />
+  </description>
+  <displayname default="Reset lab data">
+    <label description="Reset lab data" languagecode="1033" />
+  </displayname>
+  <iscustomizable>1</iscustomizable>
+  <isfunction>0</isfunction>
+  <isprivate>0</isprivate>
+  <name>eqp_ResetLabData</name>
+  <plugintypeid>
+    <plugintypeexportkey>f221d721-4dbd-f111-aaaf-6045bd089e40</plugintypeexportkey>
+  </plugintypeid>
+  <workflowsdkstepenabled>0</workflowsdkstepenabled>
+</customapi>

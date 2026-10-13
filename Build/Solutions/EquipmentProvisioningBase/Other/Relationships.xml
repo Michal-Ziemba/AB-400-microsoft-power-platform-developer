@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<EntityRelationships xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <EntityRelationship Name="business_unit_eqp_allowance" />
+  <EntityRelationship Name="business_unit_eqp_device" />
+  <EntityRelationship Name="business_unit_eqp_employee" />
+  <EntityRelationship Name="business_unit_eqp_request" />
+  <EntityRelationship Name="eqp_device_request_currentdevice" />
+  <EntityRelationship Name="eqp_employee_allowance_employee" />
+  <EntityRelationship Name="eqp_employee_device_assignedto" />
+  <EntityRelationship Name="eqp_employee_request_employee" />
+  <EntityRelationship Name="eqp_systemuser_employee_user" />
+  <EntityRelationship Name="lk_eqp_allowance_createdby" />
+  <EntityRelationship Name="lk_eqp_allowance_modifiedby" />
+  <EntityRelationship Name="lk_eqp_device_createdby" />
+  <EntityRelationship Name="lk_eqp_device_modifiedby" />
+  <EntityRelationship Name="lk_eqp_employee_createdby" />
+  <EntityRelationship Name="lk_eqp_employee_modifiedby" />
+  <EntityRelationship Name="lk_eqp_request_createdby" />
+  <EntityRelationship Name="lk_eqp_request_modifiedby" />
+  <EntityRelationship Name="owner_eqp_allowance" />
+  <EntityRelationship Name="owner_eqp_device" />
+  <EntityRelationship Name="owner_eqp_employee" />
+  <EntityRelationship Name="owner_eqp_request" />
+  <EntityRelationship Name="team_eqp_allowance" />
+  <EntityRelationship Name="team_eqp_device" />
+  <EntityRelationship Name="team_eqp_employee" />
+  <EntityRelationship Name="team_eqp_request" />
+  <EntityRelationship Name="user_eqp_allowance" />
+  <EntityRelationship Name="user_eqp_device" />
+  <EntityRelationship Name="user_eqp_employee" />
+  <EntityRelationship Name="user_eqp_request" />
+</EntityRelationships>

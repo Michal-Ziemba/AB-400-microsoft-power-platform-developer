@@ -1,0 +1,11 @@
+<customapiresponseproperty uniquename="IsAvailable">
+  <description default="True if a replacement device is available.">
+    <label description="True if a replacement device is available." languagecode="1033" />
+  </description>
+  <displayname default="Is available">
+    <label description="Is available" languagecode="1033" />
+  </displayname>
+  <iscustomizable>1</iscustomizable>
+  <name>eqp_CheckAvailability.IsAvailable</name>
+  <type>0</type>
+</customapiresponseproperty>

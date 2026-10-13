@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <systemform>
+    <formid>{31d4677b-55bd-f111-aaaf-6045bd089e40}</formid>
+    <IntroducedVersion>1.0.0.0</IntroducedVersion>
+    <FormPresentation>0</FormPresentation>
+    <FormActivationState>1</FormActivationState>
+    <form>
+      <tabs>
+        <tab verticallayout="true" id="{d34a8366-590b-400d-970b-60543a0bc5a7}" IsUserDefined="1">
+          <labels>
+            <label description="Request" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section showlabel="false" showbar="false" IsUserDefined="0" id="{ef2c0aff-f244-4ad9-a673-f37236d2afa0}">
+                  <labels>
+                    <label description="Request" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{6e5298c6-a0cd-4883-8822-eb45ac4e04cd}">
+                        <labels>
+                          <label description="Request number" languagecode="1033" />
+                        </labels>
+                        <control id="eqp_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="eqp_name" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{e142044a-1e02-4a09-bdd9-3de18bf3139b}">
+                        <labels>
+                          <label description="Employee" languagecode="1033" />
+                        </labels>
+                        <control id="eqp_employee" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="eqp_employee" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{0faea629-e7e4-4b64-b532-1f764ec1c546}">
+                        <labels>
+                          <label description="Device to replace" languagecode="1033" />
+                        </labels>
+                        <control id="eqp_currentdevice" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="eqp_currentdevice" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{7cf04b72-9a26-4225-8b5e-93f53c9333fd}">
+                        <labels>
+                          <label description="Requested device type" languagecode="1033" />
+                        </labels>
+                        <control id="eqp_requesteddevicetype" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="eqp_requesteddevicetype" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{32e03b48-4631-4277-8264-f4e5c92057f4}">
+                        <labels>
+                          <label description="Justification" languagecode="1033" />
+                        </labels>
+                        <control id="eqp_justification" classid="{E0DECE4B-6FC8-4a8f-A065-082708572369}" datafieldname="eqp_justification" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{57d2e2cc-9629-4d6f-9325-0690328f2cb2}">
+                        <labels>
+                          <label description="Request status" languagecode="1033" />
+                        </labels>
+                        <control id="eqp_requeststatus" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="eqp_requeststatus" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{0b494ee8-1a2c-4574-968f-484cef44565c}">
+                        <labels>
+                          <label description="Approved on" languagecode="1033" />
+                        </labels>
+                        <control id="eqp_approvedon" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="eqp_approvedon" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{470493fc-bdbe-432b-81ec-f5ec110103a6}">
+                        <labels>
+                          <label description="Owner" languagecode="1033" />
+                        </labels>
+                        <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+      </tabs>
+      <events>
+        <event name="onload" application="false" active="false">
+          <Handlers>
+            <Handler functionName="EquipmentProvisioning.Lab01.onLoad" libraryName="eqp_/lab01/requestintake.js" handlerUniqueId="{20c84f91-3f57-42cc-92f4-9317badb3f09}" enabled="true" parameters="" passExecutionContext="true" />
+          </Handlers>
+        </event>
+        <event name="onsave" application="false" active="false">
+          <Handlers>
+            <Handler functionName="EquipmentProvisioning.Lab01.onSave" libraryName="eqp_/lab01/requestintake.js" handlerUniqueId="{241d2184-f7fa-471f-b345-28b19c3e2916}" enabled="true" parameters="" passExecutionContext="true" />
+          </Handlers>
+        </event>
+        <event name="onchange" application="false" active="false" attribute="eqp_currentdevice">
+          <Handlers>
+            <Handler functionName="EquipmentProvisioning.Lab01.onDeviceChange" libraryName="eqp_/lab01/requestintake.js" handlerUniqueId="{2b34a9af-bf1d-41c0-95f8-933b56e6e960}" enabled="true" parameters="" passExecutionContext="true" />
+          </Handlers>
+        </event>
+      </events>
+      <formLibraries>
+        <Library name="eqp_/lab01/requestintake.js" libraryUniqueId="{a4b8f18b-e0a5-4fb9-9a24-ae1d886c4947}" />
+      </formLibraries>
+    </form>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <LocalizedNames>
+      <LocalizedName description="Request intake" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="Lab 01: request form with a client-side eligibility check on approval." languagecode="1033" />
+    </Descriptions>
+  </systemform>
+</forms>

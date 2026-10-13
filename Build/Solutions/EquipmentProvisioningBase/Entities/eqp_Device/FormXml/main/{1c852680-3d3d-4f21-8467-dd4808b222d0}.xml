@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <systemform>
+    <formid>{1c852680-3d3d-4f21-8467-dd4808b222d0}</formid>
+    <IntroducedVersion>1.0.0.0</IntroducedVersion>
+    <FormPresentation>1</FormPresentation>
+    <FormActivationState>1</FormActivationState>
+    <form>
+      <tabs>
+        <tab verticallayout="true" id="{2999aa64-ee21-4606-973d-32cfa01b6517}" IsUserDefined="1">
+          <labels>
+            <label description="General" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section showlabel="false" showbar="false" IsUserDefined="0" id="{728e3362-5a53-422d-b7b9-5acf2adf7434}">
+                  <labels>
+                    <label description="General" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{20d88ac8-9749-402e-a0ea-1804e148fc6c}">
+                        <labels>
+                          <label description="Asset tag" languagecode="1033" />
+                        </labels>
+                        <control id="eqp_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="eqp_name" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{6e1c94fb-3c33-4b43-84b5-8aa13e787f78}">
+                        <labels>
+                          <label description="Device type" languagecode="1033" />
+                        </labels>
+                        <control id="eqp_devicetype" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="eqp_devicetype" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{13432a76-e6a8-4f70-a302-1edc5e95773f}">
+                        <labels>
+                          <label description="Model" languagecode="1033" />
+                        </labels>
+                        <control id="eqp_model" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="eqp_model" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{0d92c226-fa48-4308-a5af-2d708e75fe00}">
+                        <labels>
+                          <label description="Device status" languagecode="1033" />
+                        </labels>
+                        <control id="eqp_devicestatus" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="eqp_devicestatus" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{45677a0f-35ca-497b-b70e-71cbbc997921}">
+                        <labels>
+                          <label description="Assigned to" languagecode="1033" />
+                        </labels>
+                        <control id="eqp_assignedto" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="eqp_assignedto" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{b504dc61-62f7-4225-aafc-461c0d1f8b95}">
+                        <labels>
+                          <label description="Issued on" languagecode="1033" />
+                        </labels>
+                        <control id="eqp_issuedon" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="eqp_issuedon" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{0cb9c57f-f3cc-49fd-8a4a-5625afd2ead3}">
+                        <labels>
+                          <label description="Damaged beyond repair" languagecode="1033" />
+                        </labels>
+                        <control id="eqp_damagedbeyondrepair" classid="{67FAC785-CD58-4f9f-ABB3-4B7DDC6ED5ED}" datafieldname="eqp_damagedbeyondrepair" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{af8569d7-b1b3-402e-b08b-815ed2ae0660}">
+                        <labels>
+                          <label description="Condition rating" languagecode="1033" />
+                        </labels>
+                        <control id="eqp_conditionrating" classid="{C6D124CA-7EDA-4a60-AEA9-7FB8D318B68F}" datafieldname="eqp_conditionrating" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{6a2bbc8f-6481-4684-a81f-640dd6cb7abf}">
+                        <labels>
+                          <label description="Owner" languagecode="1033" />
+                        </labels>
+                        <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+      </tabs>
+    </form>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <LocalizedNames>
+      <LocalizedName description="Information" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="A form for this entity." languagecode="1033" />
+    </Descriptions>
+  </systemform>
+</forms>

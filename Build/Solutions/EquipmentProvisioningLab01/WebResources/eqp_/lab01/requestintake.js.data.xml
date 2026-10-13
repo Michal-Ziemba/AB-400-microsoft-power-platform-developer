@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<WebResource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <WebResourceId>{53928774-55bd-f111-aaaf-6045bd089e40}</WebResourceId>
+  <Name>eqp_/lab01/requestintake.js</Name>
+  <DisplayName>Lab 01 request intake checks</DisplayName>
+  <WebResourceType>3</WebResourceType>
+  <IntroducedVersion>1.0.0.0</IntroducedVersion>
+  <IsEnabledForMobileClient>0</IsEnabledForMobileClient>
+  <IsAvailableForMobileOffline>0</IsAvailableForMobileOffline>
+  <IsCustomizable>1</IsCustomizable>
+  <CanBeDeleted>1</CanBeDeleted>
+  <IsHidden>0</IsHidden>
+  <FileName>/WebResources/eqp_lab01requestintakejs53928774-55BD-F111-AAAF-6045BD089E40</FileName>
+</WebResource>

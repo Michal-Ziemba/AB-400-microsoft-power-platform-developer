@@ -1,0 +1,10 @@
+# Dataverse SDK for Python and azure-identity for interactive sign-in.
+# Verified 2026-09-30 against Python 3.12 on Windows (x64 and ARM64).
+PowerPlatform-Dataverse-Client==1.0.1
+azure-identity==1.25.3
+
+# Pinned explicitly: azure-identity otherwise resolves to the newest
+# cryptography release, which has no win_arm64 wheel yet and falls back to
+# a from-source build that needs a Rust toolchain and the MSVC linker.
+# 46.0.3 is the newest release that ships a win_arm64 wheel.
+cryptography==46.0.3
