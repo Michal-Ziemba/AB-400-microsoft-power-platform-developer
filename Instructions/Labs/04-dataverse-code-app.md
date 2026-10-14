@@ -47,6 +47,20 @@ The starter files for this exercise are a React and TypeScript project, scaffold
     npm install
     ```
 
+1. Confirm the Power Apps CLI version:
+
+    ```bash
+    pa --version
+    ```
+
+    Use version 1.3.0 or later. If your installed version is older, update it before you initialize the app:
+
+    ```bash
+    npm install --global @microsoft/power-apps-cli@latest
+    ```
+
+    This avoids generating the service models with an older CLI.
+
 1. Initialize the code app for your environment:
 
     ```bash
@@ -176,10 +190,21 @@ Before the form creates a request, it calls the supplied `eqp_IsEligibleForRepla
 
     ```typescript
       // Create the replacement request
-      const newRequest = {
+      const requestedDeviceType = selectedDevice.eqp_devicetype;
+      if (
+        requestedDeviceType !== 100000000 &&
+        requestedDeviceType !== 100000001 &&
+        requestedDeviceType !== 100000002 &&
+        requestedDeviceType !== 100000003
+      ) {
+        setStatus('The selected device has an unsupported device type. Check its Device type in Dataverse.');
+        return;
+      }
+
+      const newRequest: Parameters<typeof Eqp_requestsService.create>[0] = {
         eqp_justification: justification,
-        eqp_requesteddevicetype: String(selectedDevice.eqp_devicetype),
-        statecode: '0',
+        eqp_requesteddevicetype: requestedDeviceType,
+        statecode: 0 as const,
         'eqp_Employee@odata.bind': `/eqp_employees(${employeeId})`,
         'eqp_CurrentDevice@odata.bind': `/eqp_devices(${selectedDeviceId})`,
       };
@@ -195,7 +220,9 @@ Before the form creates a request, it calls the supplied `eqp_IsEligibleForRepla
       }
     ```
 
-    The `@odata.bind` property names match the generated model exactly, including capitalization (`eqp_Employee`, `eqp_CurrentDevice`) — this is a different casing from the table's own logical name (`eqp_employee`, `eqp_currentdevice`), and TypeScript rejects the call if it doesn't match. `eqp_requesteddevicetype` is sent as a string, and `statecode` is required by the generated type even though Dataverse defaults it on create; `'0'` is Active for every table in this solution. Dataverse fills in the rest, including the autonumbered request number (`eqp_name`) this code reads back from the response.
+    `Parameters<typeof Eqp_requestsService.create>[0]` uses the generated service's input type to check the payload before the call. The `@odata.bind` property names match that model exactly, including capitalization (`eqp_Employee`, `eqp_CurrentDevice`). They differ from the lowercase lookup logical names.
+
+    The device-type check narrows the value to the four numeric options supported by the generated choice type. Don't convert it to a string. Set `statecode` to the number `0` (Active). `as const` preserves the literal `0` type. Dataverse fills in the rest, including the autonumbered request number (`eqp_name`) this code reads back from the response.
 
 1. Save the file, refresh the **Local Play** page, select `LAP-1001`, enter a justification, and select **Submit request**.
 

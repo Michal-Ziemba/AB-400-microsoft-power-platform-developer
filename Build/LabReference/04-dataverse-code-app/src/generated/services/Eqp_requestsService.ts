@@ -4,14 +4,14 @@
 // property names, capitalized exactly as Dataverse's schema names them
 // (eqp_Employee, eqp_CurrentDevice) - a different casing from the table's
 // logical name (eqp_employee, eqp_currentdevice). It also requires
-// statecode, even though Dataverse defaults it on create.
+// choice values as numeric literals.
 import type { IOperationResult } from '../types';
 import type { Requests } from '../models/Eqp_requestsModel';
 
 export interface RequestsCreateInput {
   eqp_justification?: string;
-  eqp_requesteddevicetype?: string;
-  statecode: string;
+  eqp_requesteddevicetype?: Requests['eqp_requesteddevicetype'];
+  statecode?: Requests['statecode'];
   'eqp_Employee@odata.bind': string;
   'eqp_CurrentDevice@odata.bind': string;
 }

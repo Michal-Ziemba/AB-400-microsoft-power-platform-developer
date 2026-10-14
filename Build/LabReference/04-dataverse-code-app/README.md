@@ -28,6 +28,10 @@ return hard-coded sample data. They exist only so the hand-written files above t
 and `npm run build` succeeds without a Dataverse connection; **they are not what the CLI
 generates** and must not be copied into a real project.
 
+The request-create stub uses numeric choice literals and optional `statecode: 0 | 1`.
+The component supplies `statecode: 0 as const` to preserve the Active literal type,
+matching the current generated model reported during learner testing.
+
 To turn this reference into a working app, delete `src/generated/` and run the same
 `pa app add data-source` / `pa app add dataverse-api` commands used in the exercise,
 against your own environment. `src/App.tsx` and `src/components/` need no changes.

@@ -44,7 +44,7 @@ You should see a summary confirming 5 employees, 9 devices, 6 requests, and 4 al
 
 ## Configure environment-neutral authentication for the .NET and Python clients
 
-The starter projects for this exercise are in `Allfiles/02-resilient-dataverse-api/dotnet` and `Allfiles/02-resilient-dataverse-api/python`, in the lab files you cloned in the setup. Both projects sign in interactively, so neither one needs an app registration, a client secret, or an admin consent step. The .NET project uses the same sample application ID Microsoft publishes for development and prototyping in its own Dataverse SDK for .NET quickstart. The Python project uses a browser-based sign-in through Azure Identity.
+The starter projects for this exercise are in `Allfiles/02-resilient-dataverse-api/dotnet` and `Allfiles/02-resilient-dataverse-api/python`, in the lab files you cloned in the setup. Both projects sign in interactively, so neither one needs its own app registration or a client secret. The .NET project uses Microsoft's published sample application ID and a shared MSAL token cache for its Web API and Organization service clients. The Python project uses a separate browser-based sign-in through Azure Identity. Your tenant's consent policies still apply to both projects.
 
 1. Open `Allfiles/02-resilient-dataverse-api/dotnet/appsettings.json` and replace the placeholder value with your Dataverse environment URL, for example `https://yourorg.crm.dynamics.com`. Save the file.
 
@@ -56,7 +56,9 @@ The starter projects for this exercise are in `Allfiles/02-resilient-dataverse-a
     dotnet run
     ```
 
-1. Sign in with your credentials when prompted. You're prompted twice in this first run: once for the Web API client, and once for the Organization service client.
+1. Sign in with the account you use for your Dataverse environment when the browser opens. Complete any consent or multifactor authentication prompts within five minutes.
+
+    The .NET app signs in once initially. Both API clients use the same account and token cache, so the Organization service doesn't start a second independent sign-in. Tokens are acquired silently or renewed as needed. A new consent requirement can prompt another sign-in. If authentication times out, run `dotnet run` again and complete the browser flow. The Python client later in this section has its own sign-in.
 
 1. Confirm the output includes two success lines similar to:
 

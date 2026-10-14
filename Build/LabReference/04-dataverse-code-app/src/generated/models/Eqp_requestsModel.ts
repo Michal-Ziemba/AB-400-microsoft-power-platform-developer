@@ -4,5 +4,6 @@ export interface Requests {
   // Autonumbered request number Dataverse assigns on create, e.g. REQ-00007.
   eqp_name?: string;
   eqp_justification?: string;
-  eqp_requesteddevicetype?: string;
+  eqp_requesteddevicetype?: 100000000 | 100000001 | 100000002 | 100000003;
+  statecode?: 0 | 1;
 }
