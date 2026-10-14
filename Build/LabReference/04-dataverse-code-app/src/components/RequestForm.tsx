@@ -107,14 +107,23 @@ export function RequestForm() {
       // The @odata.bind property names match the generated model exactly,
       // including capitalization (eqp_Employee, eqp_CurrentDevice) - a
       // different casing from the table's own logical name (eqp_employee,
-      // eqp_currentdevice). eqp_requesteddevicetype is sent as a string, and
-      // statecode is required by the generated type even though Dataverse
-      // defaults it on create; '0' is Active for every table in this
-      // solution.
-      const newRequest = {
+      // eqp_currentdevice). Choices are numeric. Explicitly use the Active
+      // state (0), preserving its literal type for the generated model.
+      const requestedDeviceType = selectedDevice.eqp_devicetype;
+      if (
+        requestedDeviceType !== 100000000 &&
+        requestedDeviceType !== 100000001 &&
+        requestedDeviceType !== 100000002 &&
+        requestedDeviceType !== 100000003
+      ) {
+        setStatus('The selected device has an unsupported device type. Check its Device type in Dataverse.');
+        return;
+      }
+
+      const newRequest: Parameters<typeof Eqp_requestsService.create>[0] = {
         eqp_justification: justification,
-        eqp_requesteddevicetype: String(selectedDevice.eqp_devicetype),
-        statecode: '0',
+        eqp_requesteddevicetype: requestedDeviceType,
+        statecode: 0 as const,
         'eqp_Employee@odata.bind': `/eqp_employees(${employeeId})`,
         'eqp_CurrentDevice@odata.bind': `/eqp_devices(${selectedDeviceId})`,
       };
