@@ -197,7 +197,7 @@ With the code compiled, you need to tell Dataverse to run it — and exactly whe
     pac tool prt
     ```
 
-1. Select **+ Create new connection**, sign in using your credentials, and connect to the Dataverse environment you've been using in this exercise.
+1. Select **+ Create new connection**, select option "Display list of available organizations", sign in using your credentials, and connect to the Dataverse environment you've been using in this exercise.
 
 1. On the **Register** menu, select **New Assembly**.
 
