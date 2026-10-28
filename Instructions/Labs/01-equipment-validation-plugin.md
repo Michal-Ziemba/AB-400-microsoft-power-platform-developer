@@ -217,6 +217,19 @@ With the code compiled, you need to tell Dataverse to run it — and exactly whe
     | Description | *Lab 01: enforce replacement eligibility on approval* |
 
     Select the **Filtering Attributes** selector and choose only `eqp_requeststatus` — don't include the primary key, and don't select every column. Select **Register New Step**.
+   > **Note**: After you select **Register New Step**, the Plug-in Registration Tool might show an error like this:
+    >
+    > ```
+    > Unhandled Exception: System.NullReferenceException: Object reference not set to an instance of an object.
+    >    at Microsoft.Crm.Tools.Libraries.OrganizationHelper.GetColumnSet(String entityName, CrmOrganization org)
+    >    at Microsoft.Crm.Tools.Libraries.OrganizationHelper.RefreshStep(CrmOrganization org, CrmPluginStep step)
+    >    at Microsoft.Crm.Tools.PluginRegistration.StepRegistrationViewModel.RegisterStep(Object sender, EventArgs e)
+    > ```
+    >
+    > The error comes from the tool refreshing its view after the save. It doesn't come from your plug-in code, and the step is usually already created. To continue:
+    >
+    > 1. Select **Cancel**
+    > 1. Expand the assembly and the plug-in class, and check that the step is listed.
 
 1. Right-click the step you just registered, and select **Register New Image**.
 
@@ -225,6 +238,7 @@ With the code compiled, you need to tell Dataverse to run it — and exactly whe
     | Setting | Value |
     |:--|:--|
     | Image Type | **Pre Image** |
+    | Name | `PreImage` |
     | Entity Alias | `PreImage` |
     | Parameters | `eqp_requeststatus`, `eqp_currentdevice` only |
 
@@ -292,7 +306,7 @@ The same replacement-eligibility logic you just implemented is also available as
 
     Save and close the form.
 
-1. Select **New** > **Catalog Assignment**. Enter a **Name**, set **Catalog Assignment Object** to the custom API `eqp_IsEligibleForReplacement` (search for it by name), and set the catalog to the **Equipment eligibility** category you just created. Save and close the form.
+1. Select Catalog Assignment tab and choose **New Catalog Assignment**. Enter `eqp_IsEligibleForReplacement` as **Name**, set **Catalog Assignment Object** to the custom API `eqp_IsEligibleForReplacement` (search for it by name), and set the catalog to the **Equipment eligibility** category you just created. Save and close the form.
 
 1. Confirm the business event is now discoverable. Open [Power Automate](https://make.powerautomate.com){:target="_blank"} at `https://make.powerautomate.com`, and confirm the environment selector (top-right) shows the same environment you've been using.
 
