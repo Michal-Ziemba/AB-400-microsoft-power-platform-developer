@@ -232,13 +232,13 @@ Now you'll create your own solution to hold this exercise's changes, upload the 
 
 1. Select **Save**.
 
-1. In the same solution, select **Add existing**, and then select **App**.
+1. In the same solution, select **Add existing**, select **App**, and then select **Model-driven app**.
 
 1. Select the **Equipment Provisioning** app, and then select **Add**.
 
 1. Select the **Equipment Provisioning** app, and then select **Edit** to open it in the app designer.
 
-1. Under **Pages**, expand the **Request** table, and next to the **Information** form, select **...**, and then select **Edit**.
+1. Under **Pages**, click the **Request form** under the Navigation-Equipement provisioning-RequestView, and select **Edit** button (pencil icon) next to the form name.
 
 1. In the form designer, select **Form libraries**, then select **Add library**.
 
@@ -250,7 +250,7 @@ Now you'll create your own solution to hold this exercise's changes, upload the 
 
 1. Select **Pass execution context as first parameter**, and then select **Done**.
 
-1. Select **Save**, and then select **Publish**.
+1. Select **Save and publish**, and select **Back**.
 
 You should see the form designer confirm the publish completed without errors. You'll trigger the handler itself once the command is in place too, in a later task.
 
@@ -258,7 +258,7 @@ You should see the form designer confirm the publish completed without errors. Y
 
 With the web resource in place, add a command to the Request form's command bar that calls `confirmProvisioning`.
 
-1. Still in the app designer for **Equipment Provisioning**, next to the **Request** table's **Pages** entry, select **...**, and then select **Edit command bar**.
+1. Still in the app designer for **Equipment Provisioning**, next to the **Request view** page, select **...**, and then select **Edit command bar**.
 
 1. Choose the **Main form** location, and then select **Edit**.
 
@@ -272,13 +272,13 @@ With the web resource in place, add a command to the Request form's command bar 
 
 1. For **Function name**, enter `EquipmentProvisioning.Lab06.confirmProvisioning`.
 
-1. Add a parameter for the function, and choose **Primary Control** as its type. This is what passes the form context into `confirmProvisioning` as its single argument.
+1. Select **Add a parameter**, and choose **Primary Control** as its type. This is what passes the form context into `confirmProvisioning` as its single argument.
 
-1. Select **Save and Publish**.
+1. Select **Save and Publish**, and select **Back**.
 
-1. Back in the app designer, select **Publish all customizations**.
+1. Select **Back** in the app designer to go back to the solution, select **Publish all customizations**.
 
-You should see the new **Send to fulfillment** button listed as a command on the Request main form's command bar.
+When you run the **Equipment Provisioning** app you should see the new **Send to fulfillment** button listed as a command on the Request main form's command bar for any selected request.
 
 ## Debug with browser developer tools and prove the script
 
