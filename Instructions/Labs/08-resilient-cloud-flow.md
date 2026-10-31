@@ -190,7 +190,7 @@ The approval flow still authenticates as you. Switch its Dataverse connection to
 
 1. Under **Connection**, select **+ New connection**.
 
-1. In the new-connection dialog for **Microsoft Dataverse**, select **Connect with service principal** instead of **Sign in**.
+1. In the new-connection page search for **Microsoft Dataverse**, select **+** in the Actions column, select **Service principal** in the **Authentication type**.
 
 1. Enter:
 
@@ -201,6 +201,8 @@ The approval flow still authenticates as you. Switch its Dataverse connection to
 
 1. Select **Create**.
 
+1. Return to the previous page with connection reference, select **Refresh** and expand the drop-down field with all connections.
+  
 1. Confirm **Lab 08 service principal** is selected on the connection reference pane, and select **Save**.
 
 > **Note**: Only the parent flow's connection switches to the service principal. **Lab 08 fulfilment child flow** keeps its own Dataverse connection on your sign-in — child flows in a solution must use embedded connections, and splitting a second authentication mechanism into this exercise wouldn't teach anything new.
