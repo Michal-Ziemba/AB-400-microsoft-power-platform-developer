@@ -80,18 +80,19 @@ You should now see generated code in place of both empty functions. It won't alw
 
 ## Review the generated code and correct it
 
-GitHub Copilot's first draft is usually close, but not always exact. Check it against the list below, then compare it with the confirmed-working versions that follow and correct anything that's different.
+GitHub Copilot's first draft is usually close, but not always exact. Check it against the list below, then compare it with the reference implementations that follow and correct anything that's different. Test the result on the form in the final task.
 
 | Check | What to look for |
 |---|---|
-| Custom API name and parameter | The operation name must be exactly `eqp_IsEligibleForReplacement`, with a single request parameter named `DeviceId` |
+| Custom API name and parameter | Use `Xrm.WebApi.online.execute` with operation name `eqp_IsEligibleForReplacement` and one `DeviceId` parameter. The reference request uses `{ guid: deviceId }`, verified in the tested client |
+| Authentication and errors | Use the signed-in model-driven app's Web API context. Check the HTTP status and Boolean `IsEligible` response, and report failures rather than treating them as an eligibility result |
 | Table and column names | `eqp_device`, `eqp_issuedon`, `eqp_employee`, `eqp_allowance`, `eqp_remaining` — Copilot sometimes guesses a plausible but wrong logical name |
 | Allowance filter | The filter needs the employee's ID on the lookup's value property (`_eqp_employee_value`), not the lookup's display name |
 | Eligible-from date math | The warning date is the issue date plus 24 **calendar** months, not a fixed number of days |
 | Confirm command signature | `confirmProvisioning` must accept a single parameter — the form context, passed in by the command's **Primary Control** parameter |
 | No writes | Neither function should call `Xrm.WebApi.updateRecord` or save the form |
 
-1. Compare your `onFormLoad` function with the confirmed-working version below, and correct any differences:
+1. Compare your `onFormLoad` function with the reference implementation below, and correct any differences:
 
     ```javascript
     function onFormLoad(executionContext) {
@@ -102,11 +103,7 @@ GitHub Copilot's first draft is usually close, but not always exact. Check it ag
         var device = formContext.getAttribute("eqp_currentdevice").getValue();
         if (device && device.length > 0) {
             var deviceId = device[0].id.replace(/[{}]/g, "");
-            var eligibilityRequest = new IsEligibleForReplacementRequest(deviceId);
-
-            Xrm.WebApi.online.execute(eligibilityRequest).then(function (response) {
-                return response.json();
-            }).then(function (result) {
+            checkEligibility(deviceId).then(function (result) {
                 console.log("eqp_IsEligibleForReplacement returned IsEligible=" + result.IsEligible);
                 if (result.IsEligible) {
                     formContext.ui.clearFormNotification(ELIGIBILITY_NOTIFICATION_ID);
@@ -120,7 +117,12 @@ GitHub Copilot's first draft is usually close, but not always exact. Check it ag
                     formContext.ui.setFormNotification(message, "WARNING", ELIGIBILITY_NOTIFICATION_ID);
                 });
             }).catch(function (error) {
-                console.log(error.message);
+                console.error(error.message);
+                formContext.ui.setFormNotification(
+                    "The eligibility check couldn't be completed. Check the browser console for details.",
+                    "ERROR",
+                    ELIGIBILITY_NOTIFICATION_ID
+                );
             });
         }
 
@@ -147,13 +149,13 @@ GitHub Copilot's first draft is usually close, but not always exact. Check it ag
     }
     ```
 
-    This version calls the eligibility custom API with the device's ID and only shows the WARNING notification when the response's `IsEligible` value is `false`. The allowance read doesn't depend on the eligibility result, so it runs whether or not the device is eligible.
+    This version calls the eligibility custom API with the device's ID and only shows the WARNING notification when the response's `IsEligible` value is `false`. The allowance read doesn't depend on the eligibility result, so it runs even if the eligibility call fails.
 
-1. Confirm the file has a small helper near the top that builds the custom API request, similar to this. If Copilot generated something different, replace it with this version so the operation name and parameter match F2 exactly:
+1. Confirm the file has a small helper near the top that calls the custom API, similar to this. If Copilot generated something different, replace it with this version so the operation name and parameter match F2 exactly:
 
     ```javascript
     function IsEligibleForReplacementRequest(deviceId) {
-        this.DeviceId = deviceId;
+        this.DeviceId = { guid: deviceId };
     }
     IsEligibleForReplacementRequest.prototype.getMetadata = function () {
         return {
@@ -165,7 +167,25 @@ GitHub Copilot's first draft is usually close, but not always exact. Check it ag
             operationName: "eqp_IsEligibleForReplacement"
         };
     };
+
+    function checkEligibility(deviceId) {
+        return Xrm.WebApi.online.execute(new IsEligibleForReplacementRequest(deviceId)).then(function (response) {
+            if (response.ok) {
+                return response.json();
+            }
+            return response.text().then(function (body) {
+                throw new Error("Eligibility check failed (" + response.status + "): " + body);
+            });
+        }).then(function (result) {
+            if (!result || typeof result.IsEligible !== "boolean") {
+                throw new Error("Eligibility check returned an invalid IsEligible value.");
+            }
+            return result;
+        });
+    }
     ```
+
+    The request uses the signed-in app's Web API context, without an API key or a separately acquired token. The GUID wrapper produced the correct string `DeviceId` in the tested client's outgoing JSON; it isn't a general requirement for every GUID parameter or SDK. An unsuccessful HTTP response or an invalid `IsEligible` value reaches the handler's error notification instead of becoming an eligibility decision.
 
 1. Confirm the file has an `addMonthsUTC` (or similarly named) helper that adds calendar months, not days, and clamps to the last day of the target month. Compare it with this version:
 
@@ -186,7 +206,7 @@ GitHub Copilot's first draft is usually close, but not always exact. Check it ag
     }
     ```
 
-1. Compare your `confirmProvisioning` function with the confirmed-working version below:
+1. Compare your `confirmProvisioning` function with the reference implementation below:
 
     ```javascript
     function confirmProvisioning(primaryControl) {
@@ -258,7 +278,7 @@ You should see the form designer confirm the publish completed without errors. Y
 
 With the web resource in place, add a command to the Request form's command bar that calls `confirmProvisioning`.
 
-1. Still in the app designer for **Equipment Provisioning**, next to the **Request** table's **Pages** entry, select **...**, and then select **Edit command bar**.
+1. Still in the app designer for **Equipment Provisioning**, select **Requests view** under **Pages** so its **...** menu appears. Select **...** > **Edit command bar**.
 
 1. Choose the **Main form** location, and then select **Edit**.
 
@@ -290,7 +310,7 @@ Now trigger everything you've built, and use the browser's own developer tools �
 
 1. Open the browser's developer tools (for example, by pressing **F12**), and select the **Console** tab. Reload the form. You should see the console messages your script logged, including the `IsEligible` result and the remaining allowance.
 
-1. Select the **Sources** tab, and find your web resource (use **Ctrl+P** to search for it by name). Set a breakpoint on the line that calls `Xrm.WebApi.online.execute`.
+1. Select the **Sources** tab, and find your web resource (use **Ctrl+P** to search for it by name). Confirm the loaded script contains your `IsEligibleForReplacementRequest` implementation, and set a breakpoint on the line that calls `Xrm.WebApi.online.execute`. If the loaded code differs from your saved file, verify the uploaded web resource, form library, and published handler before testing the logic.
 
 1. Reload the form. Execution should pause at your breakpoint. Inspect the `deviceId` variable, and then resume execution.
 
@@ -306,10 +326,29 @@ You've now seen the corrected script run end to end: a warning and an allowance 
 
 If you've finished exploring, remove the customizations you added in this exercise.
 
-1. In the maker portal, select **Solutions**.
+> **Important**: This exercise creates an unmanaged solution. Deleting that solution removes only its container, not the command, form event handler, or web resource. Remove those lab-owned customizations first. Don't delete the shared app, the **Information** form, or any unrelated commands or event handlers.
 
-1. Select **EquipmentProvisioningLab06**, select **...**, and then select **Delete**.
+1. In the maker portal, open the solution you created, **Equipment Provisioning Lab 06**, and edit the **Equipment Provisioning** app. Open the **Request** table's command bar editor and choose **Main form**.
 
-1. Confirm the deletion.
+1. Select the **Send to fulfillment** command you created in this exercise, delete it, and select **Save and Publish**. Return to the app designer and publish the app.
+
+1. Open the Request **Information** form in the form designer. Under **Events** > **On Load**, remove only the handler whose function is `EquipmentProvisioning.Lab06.onFormLoad`.
+
+1. Under **Form libraries**, remove **Equipment provisioning lab 06 script** (`eqp_requestscript`) from this form. Save and publish the form.
+
+1. Return to the lab solution's component list and select the **Equipment provisioning lab 06 script** web resource. Select **Delete from this environment**, not **Remove from this solution**, and confirm.
+
+    If dependencies prevent deletion, first check that the lab command, handler, and library references are removed and published. Don't delete unrelated components. A deleted modern command can leave an **App Action** dependency. Only for that case:
+
+    1. Open the dependency details and identify the remaining App Action's ID. Keep those details available for comparison. If you can't identify the exact dependency, stop rather than guessing.
+    1. Download [remove-lab-command.js](https://raw.githubusercontent.com/MicrosoftLearning/AB-400-microsoft-power-platform-developer/main/Allfiles/06-model-driven-script-copilot/remove-lab-command.js){:target="_blank"} from `https://raw.githubusercontent.com/MicrosoftLearning/AB-400-microsoft-power-platform-developer/main/Allfiles/06-model-driven-script-copilot/remove-lab-command.js`, and open it in Visual Studio Code. This optional cleanup helper uses the signed-in app's Web API to inspect the remaining action and delete it only after ownership checks and confirmation.
+    1. Review the helper. It requires exactly one unmanaged action linked to the **Equipment Provisioning** app and `eqp_requestscript`, with the lab's function name and a `sendtofulfillment` unique name. It uses an ETag to reject a concurrent change. It never deletes the app, form, or web resource.
+    1. In the **Equipment Provisioning** app, open browser developer tools and select **Console**. Use the context where `Xrm` is available. After reviewing the helper, paste its contents into the console and run it. Don't disable browser security controls to allow pasting.
+    1. Compare the displayed action ID with the dependency details. Confirm deletion only if they match and you created that command in this exercise. Otherwise cancel. If any ownership check fails, leave the component intact and investigate; don't weaken the checks.
+    1. Confirm the console reports that deletion and absence verification succeeded. Return to the maker portal and retry deletion of the lab web resource. This helper uses the [documented App Action DELETE operation](https://learn.microsoft.com/power-apps/developer/data-platform/reference/entities/appaction){:target="_blank"} at `https://learn.microsoft.com/power-apps/developer/data-platform/reference/entities/appaction`.
+
+1. In the lab solution, remove any remaining shared app or table entries using **Remove from this solution**, never **Delete from this environment**. Return to **Solutions**, select the lab solution using the **Name** value you noted when you created it, and delete only its container.
+
+1. Reopen a request in **Equipment Provisioning**. Confirm the lab's **Send to fulfillment** command and its eligibility/allowance notifications are no longer present, and the form loads without a missing-library error.
 
 Don't delete the **Equipment Provisioning (base)** solution or any seed data rows — other exercises depend on them.

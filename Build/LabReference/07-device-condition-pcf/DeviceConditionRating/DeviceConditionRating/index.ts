@@ -51,7 +51,7 @@ export class DeviceConditionRating implements ComponentFramework.StandardControl
         this._ratingLabel.setAttribute("class", "eqp-rating-label");
 
         this._value = context.parameters.rating.raw ?? 1;
-        this._ratingInput.setAttribute("value", this._value.toString());
+        this._ratingInput.value = this._value.toString();
         this._ratingLabel.innerHTML = this._value.toString();
 
         this._container.appendChild(this._ratingInput);
@@ -79,7 +79,7 @@ export class DeviceConditionRating implements ComponentFramework.StandardControl
 
         // Add code to update control view
         this._value = context.parameters.rating.raw ?? this._value;
-        this._ratingInput.setAttribute("value", this._value.toString());
+        this._ratingInput.value = this._value.toString();
         this._ratingLabel.innerHTML = this._value.toString();
     }
 
