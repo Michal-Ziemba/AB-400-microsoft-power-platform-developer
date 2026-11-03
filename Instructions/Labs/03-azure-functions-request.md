@@ -247,17 +247,11 @@ This is the moment the whole exercise has been building toward: invoke the deplo
 
 You should see **Request status** has changed from **Approved** to **In fulfillment**, **Availability** has changed from **Not checked** to **Available**, and **Availability checked on** and **Processing note** are both populated. That delay you waited through is exactly why this work runs in an Azure Function instead of inside a Dataverse plug-in: a plug-in would have held the save operation open for those same few seconds.
 
-> **Try this:** The supplied `RecalculateAllowances` function is already deployed.  
-> Before running the function from the Azure portal, make sure the function app
-> allows requests from the Azure portal:
+> **Try this**: The supplied `RecalculateAllowances` function is already deployed. To run it on demand, open the [Azure portal](https://portal.azure.com){:target="_blank"} at `https://portal.azure.com`. For this optional browser-based test, configure cross-origin resource sharing (CORS) if the portal's origin isn't already allowed:
 >
 > 1. In the Azure portal, open your function app.
-> 2. Open **CORS**.
-> 3. Under **Allowed Origins**, add:
->
->    `https://portal.azure.com`
->
-> 4. Save the change.
+> 1. Open **CORS**. Under **Allowed Origins**, add `https://portal.azure.com` if it isn't already present. Preserve existing entries and don't use the wildcard `*`. If the portal test reports a different blocked Microsoft portal origin, allow that exact origin rather than all origins.
+> 1. Select **Save**.
 >
 > Then select **Functions**, select **RecalculateAllowances**, select **Code + Test**, and use the **Test/Run** pane to run it once on demand instead of waiting for its schedule. Afterward, open the Allowance `EMP-002-CURRENT` in the **Equipment Provisioning** app: its **Devices used** and **Remaining** values correct from the stale 2 and 0 to 0 and 2, and **Last recalculated on** updates. This isn't required to complete the exercise, but it's worth about two minutes if you have time, because it's the only place in this exercise you see a scheduled trigger run.
 

@@ -171,29 +171,59 @@ You should now have a `~/.copilot/mcp-config.json` file that contains a `Dataver
 
 Now connect GitHub Copilot CLI to the Dataverse MCP server, and confirm that only the allowlisted tools are available on this connection.
 
-1. In your terminal, start GitHub Copilot CLI again:
-
-    ```bash
-    copilot
-    ```
-
-1. Confirm the server loaded by listing configured MCP servers:
+1. At your terminal's shell prompt, list configured MCP servers:
 
     ```bash
     copilot mcp list
     ```
 
-   You should see `DataverseMcp` listed as a configured server.
+   You should see `DataverseMcp` listed. This confirms the configuration was found; it doesn't prove that Dataverse authentication or a tool call has succeeded. Run this command in PowerShell or your usual shell, not inside an interactive Copilot chat. If you're already in a Copilot chat, use `/exit` first or open a second terminal.
 
-1. At the Copilot prompt, ask:
+1. At the same shell prompt, inspect the configured tool allowlist:
 
-    ```input
-    What tools does the DataverseMcp server expose on this connection, and what does each one do? Show the JSON definition for each tool.
+    ```bash
+    copilot mcp get DataverseMcp
     ```
 
-   Copilot responds with exactly three tools — `read_query`, `search`, and `describe` — along with each tool's JSON input schema. Compare this list against the Dataverse MCP server's full tool list in the [Dataverse MCP server documentation](https://learn.microsoft.com/power-apps/maker/data-platform/data-platform-mcp){:target="_blank"} at `https://learn.microsoft.com/power-apps/maker/data-platform/data-platform-mcp`: the full server also supports tools such as `create_record`, `update_record`, and `delete_record`, none of which appear here.
+   Confirm **Configured tools** contains only `read_query`, `search`, and `describe`. If other tools appear, correct the supplied configuration before you continue.
 
-You should see that the connection exposes only the three tools named in the allowlist, confirming that the restriction you configured is in effect.
+1. Start an interactive Copilot session:
+
+    ```bash
+    copilot
+    ```
+
+1. At the Copilot prompt, open the MCP server manager:
+
+    ```input
+    /mcp
+    ```
+
+1. Select `DataverseMcp` and check its connection status. If authentication is required, follow its authentication option and complete the browser sign-in with the account you use for this Dataverse environment. Review and approve access, then return to the terminal and reconnect or retry as prompted.
+
+   This Dataverse sign-in is separate from the GitHub `/login` step. An existing cached Dataverse sign-in may connect without another browser prompt.
+
+   > **Important**: Some Copilot CLI versions show every tool advertised by the server in the MCP dashboard, including write tools. That dashboard list isn't the model's effective tool allowlist. Use the **Configured tools** check above to verify the configuration, then check the model's available tools below and test the write refusal in the final task.
+
+   > **Tip**: An HTTP 403 message saying the application isn't authorized to access MCP can mean the **Microsoft GitHub Copilot** client is still disabled. Check **Is Enabled** in the environment's MCP client settings from the earlier task. Don't change billing to try to resolve a client-authorization error.
+
+1. Return to the Copilot chat and ask:
+
+    ```input
+    Do not call any tools. List the exact DataverseMcp tools available to you on this connection, and what each one does.
+    ```
+
+   Copilot should list exactly three tools — `read_query`, `search`, and `describe`. Compare this list against the Dataverse MCP server's full tool list in the [Dataverse MCP server documentation](https://learn.microsoft.com/power-apps/maker/data-platform/data-platform-mcp){:target="_blank"} at `https://learn.microsoft.com/power-apps/maker/data-platform/data-platform-mcp`: the full server also supports tools such as `create_record`, `update_record`, and `delete_record`, none of which should be available to the model here.
+
+1. Ask for an additional model-inventory check:
+
+    ```input
+    Is the DataverseMcp create_record tool available to you? Answer only YES or NO.
+    ```
+
+   The answer should be **NO**. These inventory answers are a preliminary check, not proof of a successful read or write refusal; you test both behaviors in the following tasks.
+
+You should see that the connection exposes only the three tools named in the allowlist. If the server is disconnected or the client reports no Dataverse tools, resolve that connection before continuing. The next task verifies access by executing a real read-only query, not by relying on a configured-server listing or generated sample output.
 
 ## Retrieve the open replacement requests
 
@@ -202,7 +232,7 @@ With the connection confirmed, use the read-only `read_query` tool to retrieve t
 1. At the Copilot prompt, ask:
 
     ```input
-    Using the DataverseMcp server, run a read_query against the eqp_request table for rows where the request status is Submitted or Approved. Return the request number, employee, and status for each row.
+    Using only the DataverseMcp server's read_query tool, retrieve rows from eqp_request where eqp_name is one of REQ-SEED-001, REQ-SEED-002, REQ-SEED-003, or REQ-SEED-004 and the request status is Submitted or Approved. Return the request number, employee, and status for each row, ordered by request number. Show the actual tool result; if the call fails, report the error instead of inventing sample results.
     ```
 
 1. Review the response. Copilot CLI calls the `read_query` tool and returns the results as structured data.
@@ -216,7 +246,9 @@ With the connection confirmed, use the read-only `read_query` tool to retrieve t
     ]
     ```
 
-   The exact shape of the response depends on the columns Copilot includes in the query it builds, but the four request numbers should match `REQ-SEED-001` through `REQ-SEED-004`, the open requests you confirmed in **Before you start**.
+   The exact shape of the response depends on the query Copilot builds. Status can appear as a label or as its numeric value: `100000000` is Submitted and `100000001` is Approved. Confirm that an actual `read_query` tool call succeeded and returned `REQ-SEED-001` through `REQ-SEED-004`, not just a response that repeats the example.
+
+   The request-number filter deliberately excludes requests created during earlier exercises. **Reset lab data** restores seed rows but doesn't delete learner-created rows, so an unfiltered query can legitimately return additional Submitted requests.
 
 > **Note**: Each tool call made through this connection is billed in Copilot Credits at a low per-response rate, unless your tenant holds a qualifying license. If the call fails because a rate or credit limit is reached, wait a few seconds and try again, or compare your results against the JSON shown above instead.
 

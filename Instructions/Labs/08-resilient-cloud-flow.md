@@ -35,13 +35,13 @@ This exercise starts from a supplied solution that contains a working, but naive
 
 1. Open the **Equipment Provisioning lab 08** solution once the import finishes, and select the component list filter for **Cloud flows**. You should see **Lab 08 approval flow** and **Lab 08 fulfilment child flow**, both showing **Off** — the supplied solution ships with both flows turned off.
 
-1. Select **Lab 08 approval flow**, and on the command bar select **Turn on**. Repeat for **Lab 08 fulfilment child flow**. You should see **On** in the status column for both.
+1. Leave both flows **Off** while you prepare the starting data. If you're repeating this exercise and either flow is already on, turn it off and wait for any in-progress runs to finish before continuing.
 
 1. Prepare a Microsoft Entra service principal for later in this exercise:
 
     1. Sign in to the [Microsoft Entra admin center](https://entra.microsoft.com){:target="_blank"} at `https://entra.microsoft.com`.
-    1. Browse to **Identity** > **Applications** > **App registrations**, and select **New registration** — or select an existing registration named `ab400-lab08-flow` if you've already created one.
-    1. Enter the name `ab400-lab08-flow`, leave **Redirect URI** blank, and select **Register**.
+    1. Confirm the selected tenant is the one associated with your Dataverse environment. Browse to **Identity** > **Applications** > **App registrations**. Select an existing registration named `ab400-lab08-flow` if you created it for this environment; otherwise select **New registration**.
+    1. If you're creating a registration, enter the name `ab400-lab08-flow`, leave **Redirect URI** blank, and select **Register**.
     1. On the app's **Overview** page, note the **Application (client) ID** and **Directory (tenant) ID**. You'll need both later.
     1. Select **Certificates & secrets** > **Client secrets** > **New client secret**. Enter a description, choose the shortest expiry offered, and select **Add**.
     1. Copy the secret's **Value** immediately and store it somewhere temporary — you can't retrieve it again after you leave this page.
@@ -50,11 +50,13 @@ This exercise starts from a supplied solution that contains a working, but naive
 
     1. Sign in to the [Power Platform admin center](https://admin.powerplatform.microsoft.com){:target="_blank"} at `https://admin.powerplatform.microsoft.com`.
     1. Select **Environments**, select your developer environment, and select **Settings**.
-    1. Select **Users + permissions** > **Application users**, and select **+ New app user**.
-    1. Select **+ Add an app**, search for `ab400-lab08-flow`, select it, and select **Add**.
+    1. Select **Users + permissions** > **Application users**. Compare the **App ID** column with your registration's **Application (client) ID**, rather than relying on its display name. If a matching user exists, confirm it's active and has **Equipment Integration** and **Basic User**. Assign any missing role, then skip the remaining creation steps.
+    1. If no matching user exists, select **+ New app user**, select **+ Add an app**, and find your registration. Verify its application ID, select it, and select **Add**.
     1. Select a **Business unit**, then select the edit icon next to security roles and assign **Equipment Integration** and **Basic User**. Select **Save**, confirm the role assignment, and select **Create**.
 
 1. Switch back to the Power Apps maker portal, open the **Equipment Provisioning** app, open the **Requests** view, and select **Reset lab data** on the command bar. Wait for it to finish, then select **Refresh**.
+
+1. In the **Equipment Provisioning lab 08** solution, turn on **Lab 08 fulfilment child flow**, then **Lab 08 approval flow**. Confirm both show **On**.
 
 You should see a confirmation dialog summarizing what was reset, the application user listed under **Application users** with **Equipment Integration** and **Basic User**, and both Lab 08 flows showing **On**.
 
@@ -66,7 +68,9 @@ The supplied **Lab 08 approval flow** triggers on every change to a request, has
 
 1. In the Power Apps maker portal, open the **Equipment Provisioning lab 08** solution, select **Lab 08 approval flow**, and select **Run history**. You should see a new run, even though you didn't touch the request's status. The flow has no trigger filter, so it reacts to every change.
 
-1. Force the flow's one external call to fail: open **Solutions** > **Equipment Provisioning (base)**, filter components to **Environment Variables**, select **Availability mode**, set its **Current value** to `Error`, and save and publish.
+1. In the Power Apps maker portal, confirm the selected environment, open **Solutions** > **Default Solution** > **Objects** > **Environment variables**, and open **Availability mode** (`eqp_AvailabilityMode`). In **Edit Availability mode**, enter `Error` in **Current Value** and select **Save**. Reopen the variable to confirm the stored current value.
+
+    > **Important**: Use the solution named **Default Solution**, not **Common Data Services Default Solution** or the managed **Equipment Provisioning (base)** solution. Edit only **Current Value** and leave **Default Value** unchanged. A current value for a managed environment variable is an unmanaged customization. You can type into an empty **Current Value** field; you don't need to reimport the base solution or publish separately to save it.
 
 1. In the **Equipment Provisioning** app, open `REQ-SEED-003` and change **Request status** to **Approved**. Save.
 
@@ -76,7 +80,7 @@ The supplied **Lab 08 approval flow** triggers on every change to a request, has
 
 1. In the failed run's details, expand the trigger. The connection it used is your own sign-in. Whoever happens to approve a request, the flow's Dataverse actions always run as whoever owns that connection — not as a shared, auditable identity. You'll fix this in a later task.
 
-1. Before you continue, set `eqp_AvailabilityMode`'s **Current value** back to `Available` (same steps as above), and save and publish, so the next task's tests don't fail for the wrong reason.
+1. Before you continue, reopen **Availability mode** in **Solutions** > **Default Solution** > **Objects** > **Environment variables**. Set **Current Value** back to `Available`, select **Save**, and reopen to verify it, so the next task's tests don't fail for the wrong reason.
 
 You've now seen the naive flow's three problems: it fires on irrelevant changes, it fails silently on a real approval, and it runs as a personal identity. The rest of this exercise fixes each one.
 
@@ -116,11 +120,21 @@ Right now, a failed availability check stops the flow dead with nothing recorded
 
 > **Tip**: If you'd rather copy and paste than retype the values in this task, download [expression-snippets.txt](https://raw.githubusercontent.com/MicrosoftLearning/AB-400-microsoft-power-platform-developer/main/Allfiles/08-resilient-cloud-flow/expression-snippets.txt){:target="_blank"} from `https://raw.githubusercontent.com/MicrosoftLearning/AB-400-microsoft-power-platform-developer/main/Allfiles/08-resilient-cloud-flow/expression-snippets.txt`.
 
-1. Still editing **Lab 08 approval flow**, inside the **Is_newly_approved** condition's **Yes** branch, add a new **Scope** action positioned immediately before **Record_availability**. Rename it `Try`.
+1. Turn **Lab 08 approval flow** off and wait for any active runs to finish before editing. Inside the **Is_newly_approved** condition's **Yes** branch, add a new **Scope** action positioned immediately before **Record_availability**. Rename it `Try`.
 
-1. Drag the existing **Check_availability** action into the **Try** scope. The designer automatically updates **Record_availability**'s run-after condition to run after **Try** succeeds, instead of after **Check_availability** directly.
+1. Move the availability action inside **Try**. If dragging doesn't work, use the action's **...** menu > **Copy to my clipboard**, then **Add an action** inside **Try** > **My clipboard** and select the copied action. The designer may name it `Check_availability_2`. Note the actual name; don't delete the original action yet.
 
-1. Select **Check_availability**, open its **...** menu, select **Settings**, and under **Retry Policy** set:
+1. In **Record_availability**, update **Availability** to read the action inside **Try**. For a copied action named `Check_availability_2`, use this expression:
+
+    ```text
+    if(equals(outputs('Check_availability_2')?['body/IsAvailable'], true), 100000001, 100000002)
+    ```
+
+    This expression maps the custom API's Boolean result to the Available or Unavailable choice value. Replace `Check_availability_2` with the actual action name if it differs. Select the existing expression token to edit it. If necessary, remove the token, choose **Enter custom value**, and insert a fresh **Expression**. Confirm in **Code view** that it references the action inside **Try**, not the original action, and isn't escaped as `@@if`.
+
+1. In **Record_availability**'s **Settings** > **Run after**, select only **Try** **is successful**. After you repair the expression and run-after reference, delete the original availability action if you copied it.
+
+1. Select the availability action inside **Try**, open **Settings**, and under **Retry Policy** set:
 
     - **Type**: Fixed Interval
     - **Count**: `2`
@@ -128,9 +142,9 @@ Right now, a failed availability check stops the flow dead with nothing recorded
 
     This replaces the supplied **None** policy with two retries, five seconds apart, so a transient failure gets a bounded second chance without the forced-failure test in the final task taking long to run.
 
-1. Add a second **Scope** action immediately after **Try**. Rename it `Catch`.
+1. Add a second **Scope** action on a **parallel branch after Try**, alongside the successful **Record_availability** path. In the new designer, right-click the plus sign between **Try** and **Record_availability**, and select **Add a parallel branch** > **Scope**. Rename it `Catch`. Keep **Record_availability** and subsequent fulfilment on the success branch.
 
-1. Select **Catch**, open its **...** menu, select **Configure run after**, and set it to run when **Try** **has failed** and **has timed out**. Clear **is successful**.
+1. Select **Catch**, open **Settings** > **Run after** (or **...** > **Configure run after** in the classic designer), and select **Try** **has failed** and **has timed out**. Clear **is successful** and **is skipped**. The selected failure and timeout states are alternatives: either state starts Catch.
 
 1. Inside **Catch**, add an **Update a row** action for the **Microsoft Dataverse** connector:
 
@@ -143,13 +157,15 @@ Right now, a failed availability check stops the flow dead with nothing recorded
         concat('The availability check failed and exhausted its retries on ', utcNow(), '. Route this request to ', <Fulfilment contact>, ' for manual follow-up.')
         ```
 
-        Type the literal text segments and `utcNow()` yourself, then switch to the **Dynamic content** tab and select **Fulfilment contact** at the point marked `<Fulfilment contact>` — don't type that part, because the designer inserts the correct underlying reference for you.
+        Type the literal text segments and `utcNow()` yourself, then switch to **Dynamic content** and select **Fulfillment contact (eqp_FulfillmentContact)** at the point marked `<Fulfilment contact>`. Don't type the placeholder. Verify the saved expression references that environment-variable parameter.
 
         > **Tip**: GitHub Copilot can help you draft this `concat()` expression if you describe what it should say.
 
-1. Save the flow.
+1. Inside **Catch**, immediately after its **Update a row** action, add **Control** > **Terminate** and set **Status** to **Succeeded**. In **Settings** > **Run after**, select only **is successful** for that **Update a row** action. Don't put an unconditional success terminator after the condition: if the recovery update fails, the terminator must be skipped so the failure stays visible.
 
-You should see **Check_availability** nested inside **Try**, a **Catch** scope configured to run only when **Try** fails or times out, and **Catch**'s **Update a row** action ready to compose the failure note. You'll trigger this path for real in the final task.
+1. Save and reopen the flow. Verify in **Code view** that the action inside **Try** has a fixed retry policy with count `2` and interval `PT5S`, **Record_availability** references that action and runs after **Try** succeeds, and **Catch** runs only after **Try** fails or times out. Confirm **Terminate** is inside **Catch** and runs only after the recovery update succeeds. Check **Flow checker** for errors. Keep the parent off until you're ready to test.
+
+You should see the availability action nested inside **Try**, a parallel **Catch** scope configured to run only when **Try** fails or times out, and **Catch**'s **Update a row** followed by its conditional **Terminate**. You test this path in the final task.
 
 > **Note**: The Dataverse connector's **Perform an unbound action** step is the fastest way to call `eqp_CheckAvailability` from a flow, and it's what this exercise uses throughout. The same custom API is also callable as a plain Web API request, using the **HTTP with Microsoft Entra ID** action — not the generic **HTTP** action, which has no built-in Microsoft Entra ID authentication. The equivalent raw call looks like this:
 >
@@ -168,80 +184,105 @@ You should see **Check_availability** nested inside **Try**, a **Catch** scope c
 
 Instead of running the fulfilment steps inline, delegate them to the supplied **Lab 08 fulfilment child flow**. This keeps the approval flow focused on approval, and makes the fulfilment logic reusable.
 
-1. Still editing **Lab 08 approval flow**, select the existing **Start_fulfilment** action — the **Update a row** action that runs after **Record_availability** — and delete it.
+1. Still editing **Lab 08 approval flow** from the **Equipment Provisioning lab 08** solution, add the child-flow action after **Record_availability** while leaving the existing **Start_fulfilment** action in place temporarily.
 
-1. In its place, add an action. On the **Built-in** tab, select the **Flows** connector, and select **Run a Child Flow**.
+1. On the **Built-in** tab, select the **Flows** connector, and select **Run a Child Flow**. If the child-flow list is empty, confirm you opened the parent from the solution rather than **My flows**, and turn on the supplied child flow.
 
 1. Select **Lab 08 fulfilment child flow** as the child flow to run.
 
 1. For its **Request ID** input, select the dynamic content item for the triggering row's unique identifier.
 
-1. Save the flow.
+1. Confirm **Run a Child Flow** runs after **Record_availability** succeeds. Delete the old inline **Start_fulfilment** action, save, reopen, and check that the success branch has only the child-flow action after **Record_availability**.
 
-1. Test it: in the **Equipment Provisioning** app, open `REQ-SEED-002` — now showing **In fulfillment** from the previous task — change **Request status** back to **Submitted**, save, then change it to **Approved** again, and save.
+1. Turn on **Lab 08 fulfilment child flow**, then **Lab 08 approval flow**. Prepare the test request: in the **Equipment Provisioning** app, open `REQ-SEED-002`, now showing **In fulfillment** from the previous task. Set **Request status** to **Submitted**, set **Availability** to **Not checked**, clear **Processing note**, and save.
 
-1. Check **Run history**. You should see a new, successful run, and `REQ-SEED-002`'s **Processing note** should now read "Fulfilment started on … **by the child flow**" — proof that the child flow ran, not the parent's old inline action.
+    The previous test set availability to **Available**. The `Is_newly_approved` condition requires **Not checked** as well as **Approved**, so changing only the status wouldn't run the child flow.
+
+1. Set **Request status** to **Approved** and save.
+
+1. Check **Run history**. Confirm **Record_availability** and **Run a Child Flow** succeeded, while **Catch** and its **Terminate** were skipped. The overall run should be **Succeeded**, and `REQ-SEED-002`'s **Processing note** should read "Fulfilment started on … **by the child flow**" — proof that the child flow ran, not the parent's old inline action.
 
 ## Authenticate the Dataverse connection with a service principal
 
 The approval flow still authenticates as you. Switch its Dataverse connection to the service principal you prepared earlier, so the flow's identity no longer depends on whoever happens to be signed in.
 
-1. In the **Equipment Provisioning lab 08** solution, select **Connection References**, and select **Lab 08 Dataverse (approval flow)**.
+1. Turn **Lab 08 approval flow** off and wait for any active runs to finish. In the **Equipment Provisioning lab 08** solution, select **Connection references**, open **Lab 08 Dataverse (approval flow)**, and note the personal connection currently selected. You restore it during cleanup.
 
-1. Under **Connection**, select **+ New connection**.
+1. Edit **Lab 08 approval flow** from the solution. Select the Dataverse availability action inside **Try**, such as **Check_availability_2**. Under **Parameters**, select **Change connection reference** > **Add new**. If a connector list appears, search for **Microsoft Dataverse** and select **+** in its **Actions** column.
 
-1. In the new-connection page search for **Microsoft Dataverse**, select **+** in the Actions column, select **Service principal** in the **Authentication type**.
+1. In **Create connection**, enter `Lab 08 service principal` for **Connection name**. Set **Authentication Type** to **Service Principal**, not **Oauth**. In a designer that shows **Connect with service principal** instead, select that option.
 
 1. Enter:
 
-    - **Connection name**: `Lab 08 service principal`
-    - **Application (client) ID**: the value you noted when you registered `ab400-lab08-flow`
-    - **Client Secret**: the secret value you copied earlier
+    - **Client ID**: the **Application (client) ID** you noted for `ab400-lab08-flow`
+    - **Client Secret**: the secret's **Value** you copied earlier, not its secret ID
     - **Tenant**: the **Directory (tenant) ID** you noted
 
-1. Select **Create**.
+1. Select **Create new** (or **Create**, depending on the designer).
 
-1. Return to the previous page with connection reference, select **Refresh** and expand the drop-down field with all connections.
-  
-1. Confirm **Lab 08 service principal** is selected on the connection reference pane, and select **Save**.
+    > **Tip**: A newly created secret wasn't accepted immediately in testing but worked later without being changed. If you see `AADSTS7000215` or **Invalid client secret**, first verify the client ID, tenant ID, and secret **Value**. For a newly created, verified secret, wait 30 seconds before retrying with the same value, then wait another 60 seconds before one final retry if necessary. If it still fails, stop and investigate rather than repeatedly creating replacement secrets. Don't proceed until the connection reports **Connected**.
+
+1. Check the action's connection reference. If the designer created and selected an automatically named reference, change the action back to **Lab 08 Dataverse (approval flow)** and save. Don't leave just one parent action on a separate reference.
+
+1. In the solution's **Connection references** list, open the original **Lab 08 Dataverse (approval flow)** reference. Select **Lab 08 service principal** under **Connection**; use **Refresh** if the new connection isn't listed. Select **Save**, confirm the impact dialog, and reopen the reference to verify the selected connection.
+
+1. Confirm the parent's Dataverse trigger and actions use **Lab 08 Dataverse (approval flow)**, while the child's Dataverse actions retain **Lab 08 Dataverse (child flow)**. If an extra reference was created, use **Show dependencies** to verify it's unused before deleting only that extra reference.
 
 > **Note**: Only the parent flow's connection switches to the service principal. **Lab 08 fulfilment child flow** keeps its own Dataverse connection on your sign-in — child flows in a solution must use embedded connections, and splitting a second authentication mechanism into this exercise wouldn't teach anything new.
 
-1. Open **Lab 08 approval flow**'s details page, and confirm there's no **Invalid Connection** warning. Turn the flow **Off**, then **On** again, so it picks up the new connection.
+1. Open **Lab 08 approval flow**'s details page and confirm there's no **Invalid Connection** warning. With the parent still off, prepare `REQ-SEED-002` by setting **Request status** to **Submitted**, **Availability** to **Not checked**, and clearing **Processing note**. Save the request.
 
-You should see the flow's details page report a healthy connection, with no sign-in prompt the next time it runs.
+1. Confirm the child flow is on, then turn the parent on. Open `REQ-SEED-002`, change **Request status** to **Approved**, and save. Confirm a new parent run succeeds and the request becomes **In fulfillment / Available** with the child-flow note.
+
+The new run verifies that the parent works with the selected service-principal connection; an **On** indicator alone doesn't prove the trigger or actions ran. You test failure recovery under the same connection in the final task.
 
 ## Force a failure and confirm the flow routes it for follow-up
 
 Now put the whole chain under stress: force the availability check to fail on every attempt, and confirm the flow recovers gracefully instead of failing silently.
 
-1. In **Solutions** > **Equipment Provisioning (base)**, filter components to **Environment Variables**, select **Availability mode**, set its **Current value** to `Error`, and save and publish.
+1. Turn off **Lab 08 approval flow** and wait for any in-progress runs to finish.
 
 1. In the **Equipment Provisioning** app, open the **Requests** view and select **Reset lab data** again. Wait for it to finish, then select **Refresh**. This restores `REQ-SEED-003` to **Submitted**.
 
+    Keep the parent flow off during the reset so it doesn't process the baseline approval on `REQ-SEED-004`.
+
+1. In the Power Apps maker portal, open **Solutions** > **Default Solution** > **Objects** > **Environment variables**, and open **Availability mode** (`eqp_AvailabilityMode`). Set **Current Value** to exactly `Error` and select **Save**. Reopen the variable and confirm the stored current value is `Error` in the same environment used by the availability action. Leave **Default Value** unchanged.
+
+1. Confirm `REQ-SEED-003` is **Submitted** with **Availability** set to **Not checked**, then turn on the child flow and parent flow in that order.
+
 1. Open `REQ-SEED-003`, change **Request status** to **Approved**, and save.
 
-1. Wait about 20 seconds for the two retries to run their course, then check **Run history** for **Lab 08 approval flow**. You should see a new run whose overall status is **Succeeded**, even though **Check_availability** inside **Try** shows **Failed** after exhausting its retries — the **Catch** scope's **Configure run after** condition turned a failed call into a handled outcome.
+    Confirm a new parent run appears and corresponds to this request. If no run appears, verify the saved status, target environment, trigger filters, flow state, and connection reference before continuing. No run means the failure-recovery path hasn't been tested; don't treat it as a Catch failure or repeatedly approve an unchanged row.
+
+1. Wait for the two retries to finish, then open the new run in **Run history** for **Lab 08 approval flow**. Confirm the availability action inside **Try** failed with HTTP **503** after the initial attempt and two retries. If it succeeded instead, stop and check the stored mode value and the action's target environment before repeating the test.
+
+1. Confirm **Catch**'s recovery update and **Terminate** succeeded, the overall run is **Succeeded**, and **Record_availability** and child fulfilment were skipped. The conditional **Terminate** ends the run only after recovery succeeds; **Try** still shows **Failed**, and **Catch** and its enclosing condition may show **Terminated** or **Cancelled**. If the recovery update fails or **Terminate** doesn't execute, don't report the flow as recovered.
+
+1. Check for unexpected additional parent runs after the update. **Flow checker** may warn about a circular loop because the flow writes to the triggering Requests table. With **Select columns** set to `eqp_requeststatus` and **Filter rows** set to `eqp_requeststatus eq 100000001`, availability-only updates don't match the selected column, and **Needs attention** and **In fulfillment** don't match the Approved filter. Verify run history as well as the configuration.
 
 1. Open `REQ-SEED-003` again. You should see:
 
     - **Request status**: Needs attention
     - **Processing note**: a message naming the failure and routing it to the fulfilment contact's address, for example "The availability check failed and exhausted its retries on 2026-09-30T18:42:11Z. Route this request to equipment-desk@example.com for manual follow-up."
 
-This is the exercise's payoff: the same failure that disappeared without a trace in the second task now exhausts a bounded retry, gets caught, and leaves a record naming both the problem and who should look at it.
+This is the exercise's payoff: the same failure that disappeared without a trace in the second task now exhausts a bounded retry, gets caught, and leaves a record naming both the problem and who should look at it. Only a successful recovery update reaches **Terminate** and marks the overall run **Succeeded**.
 
 ## Summary
 
-In this exercise, you started from a supplied naive approval flow and made it production-safe. You configured the Dataverse trigger's **Select columns** and **Filter rows** so it only reacts to a request becoming Approved, wrapped its external availability call in a Try/Catch scope with a bounded retry policy, composed an expression that records a failure and routes it to the fulfilment contact, extracted the fulfilment steps into a reusable child flow, and switched the approval flow's Dataverse connection to authenticate as a Microsoft Entra service principal instead of your own sign-in.
+In this exercise, you started from a supplied naive approval flow and added filtering and error handling. You configured the Dataverse trigger's **Select columns** and **Filter rows**, added a Try/Catch scope with a bounded retry policy, recorded a failure and routed it to the fulfilment contact before conditionally terminating the recovered run as succeeded, extracted fulfilment into a reusable child flow, and switched the approval flow's Dataverse connection to a Microsoft Entra service principal.
 
 You have successfully completed this exercise.
 
 ## Clean up
 
-1. Turn off **Lab 08 approval flow** and **Lab 08 fulfilment child flow** (select each flow, then select **Turn off** on the command bar). This is essential: left on, a later **Reset lab data** run — in this exercise or another — can silently restore `REQ-SEED-004` to a state the flow reacts to.
+1. Turn off **Lab 08 approval flow** and wait for any in-progress parent and child runs to finish. Then turn off **Lab 08 fulfilment child flow**. This is essential: left on, a later **Reset lab data** run can restore `REQ-SEED-004` to a state the parent flow reacts to.
+
+1. In the **Equipment Provisioning lab 08** solution, open **Connection references** > **Lab 08 Dataverse (approval flow)**. Restore the personal connection you noted before the service-principal test, save, and reopen to verify it. Leave both flows off. This avoids leaving the parent reference tied to the test secret you're about to revoke.
 
 1. In the [Microsoft Entra admin center](https://entra.microsoft.com){:target="_blank"} at `https://entra.microsoft.com`, open the `ab400-lab08-flow` app registration, select **Certificates & secrets**, and delete the client secret you created. Leave the app registration and the application user in place, so you can select them again if you repeat this exercise.
 
-1. In **Solutions** > **Equipment Provisioning (base)**, filter components to **Environment Variables**, select **Availability mode**, clear its **Current value** so it falls back to the `Available` default, and save and publish.
+1. In the Power Apps maker portal, open **Solutions** > **Default Solution** > **Objects** > **Environment variables**, and open **Availability mode** (`eqp_AvailabilityMode`). Clear **Current Value** so it falls back to the `Available` default, select **Save**, and reopen to verify the current value is empty. Don't change **Default Value** or delete the variable definition.
 
-**Reset lab data** already restored `REQ-SEED-003` and `REQ-SEED-004` to their baseline values, so you don't need to touch seed data yourself.
+1. With both flows still off, return to the **Requests** view, select **Reset lab data**, wait for it to finish, and select **Refresh**.
+
+Confirm `REQ-SEED-003` is **Submitted**, `REQ-SEED-004` is **Approved**, and both have **Availability** set to **Not checked**. Leave both flows off so the restored data stays ready for other exercises.
