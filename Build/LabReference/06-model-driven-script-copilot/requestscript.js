@@ -3,8 +3,7 @@ var EquipmentProvisioning = window.EquipmentProvisioning || {};
 // Lab 06: client-side logic for the Request main form in the Equipment Provisioning app.
 // Everything in this file only reads Dataverse data - it never writes anything back.
 //
-// This is the completed, corrected reference version: what a good GitHub Copilot draft
-// plus the review-and-correct task in the lab should produce.
+// Reference implementation for the lab's GitHub Copilot review-and-correct task.
 EquipmentProvisioning.Lab06 = (function () {
     var ELIGIBILITY_NOTIFICATION_ID = "eqp_lab06_eligibility";
     var ALLOWANCE_NOTIFICATION_ID = "eqp_lab06_allowance";
@@ -27,11 +26,8 @@ EquipmentProvisioning.Lab06 = (function () {
         return new Date(Date.UTC(targetYear, targetMonth, targetDay)).toISOString().substring(0, 10);
     }
 
-    // Request object for the eqp_IsEligibleForReplacement unbound custom API (F2). This
-    // follows the documented pattern for Xrm.WebApi.online.execute: a request object with
-    // a getMetadata method attached to its prototype.
     function IsEligibleForReplacementRequest(deviceId) {
-        this.DeviceId = deviceId;
+        this.DeviceId = { guid: deviceId };
     }
     IsEligibleForReplacementRequest.prototype.getMetadata = function () {
         return {
@@ -39,10 +35,26 @@ EquipmentProvisioning.Lab06 = (function () {
             parameterTypes: {
                 "DeviceId": { "typeName": "Edm.Guid", "structuralProperty": 1 }
             },
-            operationType: 0, // Action
+            operationType: 0,
             operationName: "eqp_IsEligibleForReplacement"
         };
     };
+
+    function checkEligibility(deviceId) {
+        return Xrm.WebApi.online.execute(new IsEligibleForReplacementRequest(deviceId)).then(function (response) {
+            if (response.ok) {
+                return response.json();
+            }
+            return response.text().then(function (body) {
+                throw new Error("Eligibility check failed (" + response.status + "): " + body);
+            });
+        }).then(function (result) {
+            if (!result || typeof result.IsEligible !== "boolean") {
+                throw new Error("Eligibility check returned an invalid IsEligible value.");
+            }
+            return result;
+        });
+    }
 
     function onFormLoad(executionContext) {
         var formContext = executionContext.getFormContext();
@@ -52,11 +64,7 @@ EquipmentProvisioning.Lab06 = (function () {
         var device = formContext.getAttribute("eqp_currentdevice").getValue();
         if (device && device.length > 0) {
             var deviceId = device[0].id.replace(/[{}]/g, "");
-            var eligibilityRequest = new IsEligibleForReplacementRequest(deviceId);
-
-            Xrm.WebApi.online.execute(eligibilityRequest).then(function (response) {
-                return response.json();
-            }).then(function (result) {
+            checkEligibility(deviceId).then(function (result) {
                 console.log("eqp_IsEligibleForReplacement returned IsEligible=" + result.IsEligible);
                 if (result.IsEligible) {
                     formContext.ui.clearFormNotification(ELIGIBILITY_NOTIFICATION_ID);
@@ -70,7 +78,12 @@ EquipmentProvisioning.Lab06 = (function () {
                     formContext.ui.setFormNotification(message, "WARNING", ELIGIBILITY_NOTIFICATION_ID);
                 });
             }).catch(function (error) {
-                console.log(error.message);
+                console.error(error.message);
+                formContext.ui.setFormNotification(
+                    "The eligibility check couldn't be completed. Check the browser console for details.",
+                    "ERROR",
+                    ELIGIBILITY_NOTIFICATION_ID
+                );
             });
         }
 

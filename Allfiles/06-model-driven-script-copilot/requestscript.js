@@ -16,10 +16,15 @@ EquipmentProvisioning.Lab06 = (function () {
      *   a first step.
      * - Read the lookup value of the eqp_currentdevice column. If a device is selected:
      *     - Call the eqp_IsEligibleForReplacement custom API with
-     *       Xrm.WebApi.online.execute, passing the device's ID as the DeviceId request
-     *       parameter. (The documented way to call a custom API like this is a small
-     *       request object with a getMetadata method, as described for
-     *       Xrm.WebApi.online.execute.)
+     *       Xrm.WebApi.online.execute. Use a request object with DeviceId set to
+     *       { guid: deviceId }, the representation verified in the exercise's
+     *       tested client. Its prototype getMetadata method describes an unbound
+     *       action named eqp_IsEligibleForReplacement with one Edm.Guid primitive
+     *       parameter named DeviceId (structuralProperty 1, operationType 0).
+     *     - Check the HTTP response status and require a Boolean IsEligible value.
+     *       If the call fails or the response is invalid, log the error and show an
+     *       ERROR form notification using ELIGIBILITY_NOTIFICATION_ID. Still run
+     *       the independent allowance read.
      *     - If the response's IsEligible value is false, retrieve the device's
      *       eqp_issuedon column with Xrm.WebApi.retrieveRecord, and show a WARNING form
      *       notification (unique ID ELIGIBILITY_NOTIFICATION_ID) naming the issue date

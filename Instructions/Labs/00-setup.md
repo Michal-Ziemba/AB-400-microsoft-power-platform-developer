@@ -79,16 +79,26 @@ Install the tools in the following table before you start the labs. Each lab's i
 
 Each command should print a version number rather than an error. If one doesn't, reopen your terminal first — some installers only update your terminal's path the next time you open it.
 
-## Sign in to GitHub and GitHub Copilot
+## Set up GitHub Copilot access
 
-Several labs in this course use GitHub Copilot Chat or agent mode. Sign in once, here, so every lab can use it.
+Several exercises use GitHub Copilot in Visual Studio Code or GitHub Copilot CLI. Set up access once before starting those exercises. If you already have an individual Copilot plan or an organization-assigned seat, keep that access and follow your organization's policies; you don't need another account or subscription.
 
-1. Sign in to [GitHub](https://github.com){:target="_blank"} at `https://github.com` using a personal, non-managed GitHub account. An Enterprise Managed User account or an account that your organization assigned a Copilot seat through can't use GitHub Copilot Free.
-1. Go to your [GitHub Copilot settings](https://github.com/settings/copilot){:target="_blank"} at `https://github.com/settings/copilot`, and confirm your plan shows **Copilot Free** or higher.
-1. In Visual Studio Code, select the **GitHub Copilot Chat** extension, and sign in with the same account.
-1. Open Copilot Chat and send a test prompt, such as `Hello`, to confirm you get a response.
+1. Sign in to [GitHub](https://github.com){:target="_blank"} at `https://github.com` using the account you intend to use for the exercises. If you don't have an account, create one at [GitHub signup](https://github.com/signup){:target="_blank"} (`https://github.com/signup`) and complete email verification.
+1. If you don't already have Copilot access, open [GitHub Copilot plans](https://github.com/features/copilot/plans){:target="_blank"} at `https://github.com/features/copilot/plans`. Under **Free**, select **Get started** and complete the activation using your personal, non-managed GitHub account.
 
-> **Note**: If GitHub Copilot Chat or agent mode stops responding partway through a lab, you've likely reached your monthly GitHub Copilot Free usage allowance. Wait until it resets on the first of next month, upgrade to GitHub Copilot Pro, or — if you access GitHub through a work or organization account — ask your organization's GitHub administrator about a Copilot Business or Copilot Enterprise seat.
+    Choose **Copilot Free**, not a paid plan or a paid-plan trial. No purchase or payment details are required for this signup path. If only paid options appear, stop and check that you're using the intended account. An Enterprise Managed User account can't enroll in Copilot Free; use its organization-assigned Copilot access if available, or an eligible personal account if your policies allow it.
+
+1. Open your [GitHub Copilot settings](https://github.com/settings/copilot){:target="_blank"} at `https://github.com/settings/copilot`, and confirm that Copilot Free or your existing Copilot plan is active.
+1. In Visual Studio Code, open the installed **GitHub Copilot Chat** extension and sign in to GitHub using the same account. Review and complete any authorization prompts.
+1. Open Copilot Chat, enter `Hello`, and confirm you receive a response before continuing.
+
+**Copilot Free** is available to eligible individual users; being a course attendee doesn't require GitHub Education verification. **Copilot Student** is a separate benefit for verified academic students. If you already qualify for that benefit, you can use it, but applying for it isn't a course prerequisite.
+
+GitHub Copilot Free has usage limits. A learner's remaining allowance isn't guaranteed to cover every exercise. If Copilot reports that you've reached a limit, check the usage and reset information shown for your account. You can resume after the allowance resets or use an existing organization-assigned plan. Don't start a paid subscription just to proceed with setup.
+
+For the MCP exercise, sign in to **GitHub Copilot CLI** using this same GitHub account when instructed. The later Dataverse authorization uses your **Power Platform account**, which may be different. A Microsoft 365 or Power Platform sign-in doesn't by itself provide GitHub Copilot access, and GitHub Copilot Free doesn't supply Dataverse MCP credits or billing coverage.
+
+> **Important**: After you finish the exercises on a shared computer, sign out of GitHub in Visual Studio Code, GitHub Copilot CLI, and the browser. Don't share your GitHub password, recovery codes, or access tokens.
 
 ## Get the lab files
 
