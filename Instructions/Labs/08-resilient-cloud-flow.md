@@ -68,7 +68,9 @@ The supplied **Lab 08 approval flow** triggers on every change to a request, has
 
 1. In the Power Apps maker portal, open the **Equipment Provisioning lab 08** solution, select **Lab 08 approval flow**, and select **Run history**. You should see a new run, even though you didn't touch the request's status. The flow has no trigger filter, so it reacts to every change.
 
-1. Force the flow's one external call to fail: open **Solutions** > **Equipment Provisioning (base)**, filter components to **Environment Variables**, select **Availability mode**, set its **Current value** to `Error`, and save and publish.
+1. In the Power Apps maker portal, confirm the selected environment, open **Solutions** > **Default Solution** > **Objects** > **Environment variables**, and open **Availability mode** (`eqp_AvailabilityMode`). In **Edit Availability mode**, enter `Error` in **Current Value** and select **Save**. Reopen the variable to confirm the stored current value.
+
+    > **Important**: Use the solution named **Default Solution**, not **Common Data Services Default Solution** or the managed **Equipment Provisioning (base)** solution. Edit only **Current Value** and leave **Default Value** unchanged. A current value for a managed environment variable is an unmanaged customization. You can type into an empty **Current Value** field; you don't need to reimport the base solution or publish separately to save it.
 
 1. In the **Equipment Provisioning** app, open `REQ-SEED-003` and change **Request status** to **Approved**. Save.
 
@@ -78,7 +80,7 @@ The supplied **Lab 08 approval flow** triggers on every change to a request, has
 
 1. In the failed run's details, expand the trigger. The connection it used is your own sign-in. Whoever happens to approve a request, the flow's Dataverse actions always run as whoever owns that connection — not as a shared, auditable identity. You'll fix this in a later task.
 
-1. Before you continue, set `eqp_AvailabilityMode`'s **Current value** back to `Available` (same steps as above), and save and publish, so the next task's tests don't fail for the wrong reason.
+1. Before you continue, reopen **Availability mode** in **Solutions** > **Default Solution** > **Objects** > **Environment variables**. Set **Current Value** back to `Available`, select **Save**, and reopen to verify it, so the next task's tests don't fail for the wrong reason.
 
 You've now seen the naive flow's three problems: it fires on irrelevant changes, it fails silently on a real approval, and it runs as a personal identity. The rest of this exercise fixes each one.
 
@@ -244,7 +246,7 @@ Now put the whole chain under stress: force the availability check to fail on ev
 
     Keep the parent flow off during the reset so it doesn't process the baseline approval on `REQ-SEED-004`.
 
-1. In **Solutions** > **Equipment Provisioning (base)**, filter components to **Environment Variables**, select **Availability mode**, set its **Current value** to exactly `Error`, and save and publish. Reopen the variable and confirm the stored current value is `Error` in the same environment used by the availability action.
+1. In the Power Apps maker portal, open **Solutions** > **Default Solution** > **Objects** > **Environment variables**, and open **Availability mode** (`eqp_AvailabilityMode`). Set **Current Value** to exactly `Error` and select **Save**. Reopen the variable and confirm the stored current value is `Error` in the same environment used by the availability action. Leave **Default Value** unchanged.
 
 1. Confirm `REQ-SEED-003` is **Submitted** with **Availability** set to **Not checked**, then turn on the child flow and parent flow in that order.
 
@@ -279,7 +281,7 @@ You have successfully completed this exercise.
 
 1. In the [Microsoft Entra admin center](https://entra.microsoft.com){:target="_blank"} at `https://entra.microsoft.com`, open the `ab400-lab08-flow` app registration, select **Certificates & secrets**, and delete the client secret you created. Leave the app registration and the application user in place, so you can select them again if you repeat this exercise.
 
-1. In **Solutions** > **Equipment Provisioning (base)**, filter components to **Environment Variables**, select **Availability mode**, clear its **Current value** so it falls back to the `Available` default, and save and publish.
+1. In the Power Apps maker portal, open **Solutions** > **Default Solution** > **Objects** > **Environment variables**, and open **Availability mode** (`eqp_AvailabilityMode`). Clear **Current Value** so it falls back to the `Available` default, select **Save**, and reopen to verify the current value is empty. Don't change **Default Value** or delete the variable definition.
 
 1. With both flows still off, return to the **Requests** view, select **Reset lab data**, wait for it to finish, and select **Refresh**.
 
