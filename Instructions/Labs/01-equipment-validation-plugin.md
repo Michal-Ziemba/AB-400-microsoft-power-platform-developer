@@ -197,7 +197,7 @@ With the code compiled, you need to tell Dataverse to run it — and exactly whe
     pac tool prt
     ```
 
-1. Select **+ Create new connection**, select option "Display list of available organizations", sign in using your credentials, and connect to the Dataverse environment you've been using in this exercise.
+1. Select **+ Create new connection**, select **Display list of available organizations**, sign in using your credentials, and connect to the Dataverse environment you've been using in this exercise.
 
 1. On the **Register** menu, select **New Assembly**.
 
@@ -217,19 +217,22 @@ With the code compiled, you need to tell Dataverse to run it — and exactly whe
     | Description | *Lab 01: enforce replacement eligibility on approval* |
 
     Select the **Filtering Attributes** selector and choose only `eqp_requeststatus` — don't include the primary key, and don't select every column. Select **Register New Step**.
-   > **Note**: After you select **Register New Step**, the Plug-in Registration Tool might show an error like this:
+
+    > **Note**: If the Plug-in Registration Tool reports the following error after you select **Register New Step**, the step might have been saved before the tool failed to refresh its view. Don't assume registration succeeded:
     >
-    > ```
+    > ```output
     > Unhandled Exception: System.NullReferenceException: Object reference not set to an instance of an object.
     >    at Microsoft.Crm.Tools.Libraries.OrganizationHelper.GetColumnSet(String entityName, CrmOrganization org)
     >    at Microsoft.Crm.Tools.Libraries.OrganizationHelper.RefreshStep(CrmOrganization org, CrmPluginStep step)
     >    at Microsoft.Crm.Tools.PluginRegistration.StepRegistrationViewModel.RegisterStep(Object sender, EventArgs e)
     > ```
     >
-    > The error comes from the tool refreshing its view after the save. It doesn't come from your plug-in code, and the step is usually already created. To continue:
+    > Check the saved registration before you continue:
     >
-    > 1. Select **Cancel**
-    > 1. Expand the assembly and the plug-in class, and check that the step is listed.
+    > 1. Select **Cancel** to close the registration dialog.
+    > 1. Expand the assembly and plug-in class. Confirm the step exists, then open its properties and verify **Message**, **Primary Entity**, **Filtering Attributes**, **Event Pipeline Stage of Execution**, and **Execution Mode** match the table above.
+    >
+    > If the step isn't present or its settings don't match, stop and resolve the registration problem before adding an image or testing the plug-in. Don't dismiss other errors or create a duplicate step.
 
 1. Right-click the step you just registered, and select **Register New Image**.
 
@@ -306,7 +309,7 @@ The same replacement-eligibility logic you just implemented is also available as
 
     Save and close the form.
 
-1. Select Catalog Assignment tab and choose **New Catalog Assignment**. Enter `eqp_IsEligibleForReplacement` as **Name**, set **Catalog Assignment Object** to the custom API `eqp_IsEligibleForReplacement` (search for it by name), and set the catalog to the **Equipment eligibility** category you just created. Save and close the form.
+1. Select the **Catalog Assignment** tab, and select **New Catalog Assignment**. Enter `eqp_IsEligibleForReplacement` as **Name**, set **Catalog Assignment Object** to the custom API `eqp_IsEligibleForReplacement` (search for it by name), and set the catalog to the **Equipment eligibility** category you just created. Save and close the form.
 
 1. Confirm the business event is now discoverable. Open [Power Automate](https://make.powerautomate.com){:target="_blank"} at `https://make.powerautomate.com`, and confirm the environment selector (top-right) shows the same environment you've been using.
 
